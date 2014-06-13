@@ -9,7 +9,7 @@ config = {
     // ### Development **(default)**
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
-        url: 'http://www.oligriffiths.com',
+        url: 'http://www.makegoodcode.com',
 
         // Example mail config
         // Visit http://docs.ghost.org/mail for instructions
@@ -48,7 +48,7 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-        url: 'http://my-ghost-blog.com',
+        url: 'http://www.makegoodcode.com',
         mail: {},
         database: {
             client: 'sqlite3',
