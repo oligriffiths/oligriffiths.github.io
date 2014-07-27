@@ -1,0 +1,10 @@
+<footer id="footer">
+  <% if (theme.sidebar === 'bottom'){ %>
+    <%- partial('_partial/sidebar') %>
+  <% } %>
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %> &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
