@@ -1,8 +1,14 @@
-Ember
+title: Ember - First Experiences
+tags:
+- ember
+- js
+---
 
 Here starts my baptism of fire with ember.js, the highs, the lows, and the hacking!
 
 My story is pretty typical, I built a single page web app in native JS and a spattering (well, more of a spilt paint bucket) of jquery, only to realise after I'd finished that ember existed. Short of wanting to jump out of the window once I'd realised how much time I might have saved, I decided to see what would actually be involved in converting the app to ember. 
+
+<!-- more -->
 
 So, first things first I imported the library and started bootstrapping my app. To my surprise, the basics came off without a hitch, understanding how ember operates seemed like second nature to me. I come from a backend PHP background using highly convention driven opinionated frameworks, so ember wasn't a huge lift. Whilst those terms (highly contention driven, opinionated) may sound scary, they're some of the main attractions of ember to me.
 
