@@ -26,6 +26,8 @@ Computed properties:
 Computed properties are properties that depend on something else, that can be another property that when changed causes the computed property to be re-evaluated, or depend on some external dependcy like formatting a date to a relative date for example. 
 If the data that you're computing directly relates to a model objects data, then you're usually best putting the computed property on the model object itself. If however the property relates to perhaps a group of model objects, the number of model objects, or the state of some other properties in a controller (eg menu open or closed, user logged in or out) then the property should go in the controller. Lastly, if the property relates to something that is purely display driven, like a currency symbol for example, then the view is the most appropriate place. 
 
+//code
+
 Actions:
 Actions exist to alter the state of the application in some way. Think of an action as transitioning to a new view, submitting a form, or any other action that you would want to catch and manually alter say properties on a model, or open a menu for example. Actions start at the controller level, if not found they bubble up to the controllers route, and if not found there, up to the application route. Knowing where to put the action can be tricky, but I follow the following rule: if the action is affecting something in the current model, or view state, it should belong in the controller. If the action should be shared amongst controllers that may be nested under the same route (think split view, master/detail layouts) then place the action in the main controllers route. If the action relates to overall system state, place it in the application route. Actions are really simple to hook up:
 
