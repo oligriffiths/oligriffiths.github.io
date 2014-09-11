@@ -8,4 +8,4 @@ In any case, welcome. I've been wanting to setup a coding blog for some time, bu
 
 The purpose of this blog is to showcase good coding practices, useful design patterns, new tools and services, and generally anything interesting that will make your life as a coder better.
 
-So, what better way to start than to blog about how I went about [setting up this blog](/2014/07/27/the-blog/)
+So, what better way to start than to blog about how I went about [setting up this blog](/2014/09/11/the-blog/)
