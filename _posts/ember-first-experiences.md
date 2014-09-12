@@ -2,6 +2,7 @@ title: Ember - First Experiences
 tags:
 - Ember
 - js
+date: 2014-09-12 16:27:05
 ---
 
 Here starts my baptism of fire with Ember.js, the highs, the lows, and the hacking!
