@@ -1,0 +1,20 @@
+title: HMVC and why you should use it!
+____
+
+MVC is a very well defined and understood concept in computer science these days. If you're unfamiliar with MVC, I suggest you get reading :)
+
+So, I expect you've used MVC whilst building applications, you have your controllers, models and views, all looks good. Whilst this is a great start, and allows you to separate control from data from presentation, many applications can do with being separated further, into business units for example, or groups of similar functionality. 
+
+For example, say you're building an e-commerce shop, you'll have products, orders, customers, etc. Whilst your app may start out with these 3 entities, over time, it's likely to grow as you add user management, order tracking, refunds, reports, multiple shippers, categories, tagging, versioning, downloads, etc. Now your app has become rather bloated, and it becomes more difficult to manage and maintain. 
+
+In HMVC, the H stands for hierarchical, what this means is that rather than a single monolithic MVC triad, your application can be made up of multiple, nested MVC chains.
+
+HMVC aims to simplify some of this, by focusing on "composing" functionality and interfaces from self contained MVC triads, the goal is de-coupling and code re-use. 
+
+Take the product listings page for example, on this page, you're likely to have a category list on the left, product listing in the centre and a cart on the right hand side for example. All of this can be easily separated out using HMVC. First, we need to decide which is the primary MVC triad, in this case it makes sense for it to be "products". The products view can then be composed of the main products list, and dispatch a request to render the category list and another request to render the cart. Each of those entities can and should be contained within its own component, this keeps related functionality grouped together and by definition allows for greater separation of concerns. 
+
+At this point, I should probably talk about composition over inheritance. The concept is intended to encourage code re-use and reduce coupling by allowing functionality to be "mixed-in" to a class or object. So rather than long inheritance chains, one starts with a light weight source class, and adds dependant functionality. This process is sometimes referred to as multiple inheritance, although some languages have support for this natively. The benefit of this approach is that required functionality can be developed in isolation and re-used between classes, and even projects. For example, basic concepts such as versioning or tagging exist outside of the concept of an e-commerce shop and can be applied across projects. Within one project you may want to tag and version different things, such as versioning orders and products, and tagging products and users. With classical inheritance this would become very diffiicult if not impossible, and force you to separate these things into factory classes access through a service container or an event bus for example. Composition focuses on adding the functionality to the object in question, which conceptially makes more sense than calling out from the current object to achieve the same results. 
+
+In the case of HMVC, one MVC triad will call out to another, passing various parameters telling that MVC triad how to operate (either by rendering something or by processing some data perhaps). That result is then "composed" with the root MVC triad via its view layer to produce the required output. What is also interesting is that these calls can go more than one level deep, allowing you to produce complex interfaces that are all in socially simplistic and work in isolation. That drastically increases code reuse and speeds up development time, less reinventing the wheel, more time focusing on what you're building. 
+
+One key thing with HMVC is abstracting out the request and response mechanism to separate it from HTTP. This allows for internal calls to work in the same way as an HTTP request. For more information on this, see my post: 
