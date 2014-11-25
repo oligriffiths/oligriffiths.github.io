@@ -146,7 +146,9 @@
         var headerText = $('#header-title'),
             mainContainer = $('#main'),
             mainNav = $('#header-nav'),
-            header = $('#header-outer');
+            headerOuter = $('#header-outer'),
+            header = $('#header'),
+            headerHeight = parseInt(header.css('height'), 10);
 
         function positionNav() {
             var scrollTop = $(window).scrollTop();
@@ -156,9 +158,20 @@
             percentage = percentage > 1 ? 1 : percentage;
             percentage = percentage < 0 ? 0 : percentage;
 
-            header.css('bottom', scrollTop/2);
+            var bottom = scrollTop/2;
+
+            headerOuter.css('bottom', bottom);
             headerText.css('opacity', 1-percentage);
             mainNav.css('background', 'rgba(0,0,0,'+(percentage * 0.8)+')');
+
+            if(scrollTop < 0){
+                header.css('height', headerHeight - scrollTop)
+            }else{
+                if(parseInt(header.css('height'), 10) != headerHeight) header.css('height', headerHeight);
+
+                if(scrollTop > headerHeight) header.css('display','none');
+                else header.css('display','');
+            }
         }
 
         positionNav();

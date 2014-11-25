@@ -36,6 +36,9 @@ body
   margin: 0 auto
   padding: 0 gutter-width
 
+  @media mq-mobile
+    padding: 0 10px
+
 .inner
   column(columns)
 
@@ -63,7 +66,7 @@ body
 
 #content
   background: color-background
-  margin-top: banner-height
+  top: -5px
   min-height: banner-height+10
   position: relative
   z-index: 2

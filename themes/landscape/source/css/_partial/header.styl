@@ -1,11 +1,13 @@
 #header
   height: banner-height
   position: fixed
+  z-index: 2
   top: 0
   left: 0
   right: 0
   border-bottom: 1px solid color-border
   background: url(banner-url) center top #000 no-repeat
+  background-size: cover
   overflow: hidden
   &:before, &:after
     content: ""
@@ -19,6 +21,8 @@
   &:after
     bottom: 0
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.2))
+#header_spacer
+    height: banner-height
 
 #header-outer
   position: absolute
