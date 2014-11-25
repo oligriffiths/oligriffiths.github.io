@@ -160,7 +160,7 @@
 
             var bottom = scrollTop/2;
 
-            headerOuter.css('bottom', bottom);
+            if(bottom < headerHeight/2) headerOuter.css('bottom', bottom);
             headerText.css('opacity', 1-percentage);
             mainNav.css('background', 'rgba(0,0,0,'+(percentage * 0.8)+')');
 
