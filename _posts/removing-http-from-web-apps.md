@@ -1,4 +1,9 @@
 title: Remove HTTP from your web apps
+tags:
+- HTTP
+- PHP
+- Terminal
+date: 2014-11-25 11:40:00
 ---
 
 So you're a web developer eh? You make websites and web apps? Well riddle me this, what makes you different from a C++ developer, a command line interface (CLI) app developer, or a mobile developer? The Hyper Text Transfer Protocol (HTTP) right? HTTP is this holy grail of what the modern tech world is built upon, without HTTP there would be no websites, no APIs, no Twitter/Facebook/Instagram!
