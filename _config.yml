@@ -91,5 +91,7 @@ feed:
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: github
+  type: git
   repo: git@github.com:oligriffiths/blog.git
+  branch: gh-pages
+  message: hexo deploy
