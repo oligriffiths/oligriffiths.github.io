@@ -86,7 +86,7 @@ App.ListController = Ember.Controller.extend({
 HTML:
 ```html
 <header>
-  {{input type="text" value=search action="query"}&#125;
+  {{input type="text" value=search action="query"}}
 </header>
 ```
 
@@ -107,20 +107,20 @@ App.ClickableView = Ember.View.extend({
 ```
 HTML:
 ```html
-{{#view "clickable"}&#125;
+{{#view "clickable"}}
 This is a clickable area!
-{{/view}&#125;
+{{/view}}
 ```
 
-In the above example, a click event is being defined on the view called `Clickable`, then a click handler is being added to the template via the view helper. Events bubble up from the target view to each parent view in succession, until the root view. 
+In the above example, a click event is being defined on the view called `Clickable`, then a click handler is being added to the template via the view helper. Events bubble up from the target view to each parent view in succession, until the root view.
 
 For further reasing, see: [http://emberjs.com/guides/views/handling-events/](http://emberjs.com/guides/views/handling-events/)
 
 ##Routes
 
-Third was understanding how to use routes properly. Ember follows a route first principle, this means that everything within an amber app is driven off a route. Routes collect models, controllers and views, they're essentially the conductor between all 3 and mediate the actions between them. 
+Third was understanding how to use routes properly. Ember follows a route first principle, this means that everything within an amber app is driven off a route. Routes collect models, controllers and views, they're essentially the conductor between all 3 and mediate the actions between them.
 
-At first this seems like a strange concept, I found myself thinking "I just want to bind this model to this view". Whilst it is indeed possible to use parts of the MVC triad outside of a route context, Ember has this embedded route system for a reason. Firstly, you're making a web app remember, and what single thing is the driving factor for all web apps (HTTP aside)? The URL. The URL is central to everything we do on the web, the source of truth, so why not use the URL to drive application state? Seems like a logical thing to assume. If you grab a URL, copy it, and paste it in an email to your mum (mom) then she would expect to be able to click that link and see what you see. This is largely the case for server side apps, so why not client side? Well, the Ember team decided on this design paradigm from the outset. As the route ties everything together, you automatically get the benefit of shareable URLs, forward and back buttons work, and sub routes allow you to do all sorts of cool nested state handling. So don't try and fight it, embrace it, routes make perfect sense that they should hold the state of your application. 
+At first this seems like a strange concept, I found myself thinking "I just want to bind this model to this view". Whilst it is indeed possible to use parts of the MVC triad outside of a route context, Ember has this embedded route system for a reason. Firstly, you're making a web app remember, and what single thing is the driving factor for all web apps (HTTP aside)? The URL. The URL is central to everything we do on the web, the source of truth, so why not use the URL to drive application state? Seems like a logical thing to assume. If you grab a URL, copy it, and paste it in an email to your mum (mom) then she would expect to be able to click that link and see what you see. This is largely the case for server side apps, so why not client side? Well, the Ember team decided on this design paradigm from the outset. As the route ties everything together, you automatically get the benefit of shareable URLs, forward and back buttons work, and sub routes allow you to do all sorts of cool nested state handling. So don't try and fight it, embrace it, routes make perfect sense that they should hold the state of your application.
 
 So how does one define a route, it's dead simple:
 
@@ -133,10 +133,10 @@ App.Router.map(function() {
 
 Now, when the user visits /about, Ember.js will render the about template. Visiting /favs will render the favorites template. Note that you can leave off the path if it is the same as the route name. In the above example, the 2nd argument for the "about" route could be left off.
 
-Within templates, there's a handy template helper `{{link-to}&#125;`
+Within templates, there's a handy template helper `{{link-to}};`
 
 ```html
-{{#link-to 'about'}&#125;<img class="logo">{{/link-to}&#125;
+{{#link-to 'about'}}<img class="logo">{{/link-to}}
 ```
 
 Simple, right?
