@@ -48,7 +48,9 @@ There are several problems with these standards:
 
 The fact that a second standard (PSR-4) was even needed, clearly indicates that the PSR-0 standard was not thought through well enough.
 
-Both standards are about autoloading, yet force a specific naming convention in order to achieve autoloading. This is both misleading, and harmful to developers. Sure, defining and autoloading standard, that has specific naming conventions may seem like a good thing, however it paves the way for one single autoloading standard to rule them all! (Until that standard get’s re-thought and replaced, **cough** PSR-4).
+Both standards are about autoloading, yet force a specific naming convention in order to achieve autoloading, they're attacking the problem from the wrong side, autoloading enforcing naming convetion, rather than naming convention dictating autoloading.
+
+This is both misleading, and harmful to developers. Sure, defining and autoloading standard, that has specific naming conventions may seem like a good thing, however it paves the way for one single autoloading standard to rule them all! (Until that standard get’s re-thought and replaced, **cough** PSR-4).
 
 A much better idea would have been to define an autoloading standard that allows naming standard specific rules to be registered against it, separating autoloading from naming standard.
 [https://r.je/php-psr-0-pretty-shortsighted-really.html](https://r.je/php-psr-0-pretty-shortsighted-really.html)
