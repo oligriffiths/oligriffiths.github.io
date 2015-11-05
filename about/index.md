@@ -1,5 +1,6 @@
 title: About
 date: 2014-09-12 16:35:25
+comments: false
 ---
 Welcome fellow geeks and hackers! This blog as been a long time coming, and I eventually got some downtime so decided to kickstart things by actually setting the blog up in the first place. So, why another blog? Well, why not, the internet could always do with more ramblings about software engineering, why not have another one?
 
