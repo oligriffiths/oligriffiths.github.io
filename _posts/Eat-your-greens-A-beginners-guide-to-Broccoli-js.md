@@ -285,7 +285,7 @@ const js = funnel(appRoot, {
 // Copy SCSS file into assets
 const css = compileSass(
   [appRoot],
-  'app.scss',
+  'styles/app.scss',
   'assets/app.css',
   {}
 );
