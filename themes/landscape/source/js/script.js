@@ -143,42 +143,45 @@
 
     $(document).ready(function () {
 
-        var headerText = $('#header-title'),
-            mainContainer = $('#main'),
-            mainNav = $('#header-nav'),
-            headerOuter = $('#header-outer'),
-            header = $('#header'),
-            headerHeight = parseInt(header.css('height'), 10);
+        if ($('body.is-home').length) {
 
-        function positionNav() {
-            var scrollTop = $(window).scrollTop();
-            var conOffset = mainContainer.offset().top;
+            var headerText = $('#header-title'),
+                mainContainer = $('#main'),
+                mainNav = $('#header-nav'),
+                headerOuter = $('#header-outer'),
+                header = $('#header'),
+                headerHeight = parseInt(header.css('height'), 10);
 
-            var percentage = (scrollTop / conOffset);
-            percentage = percentage > 1 ? 1 : percentage;
-            percentage = percentage < 0 ? 0 : percentage;
+            function positionNav() {
+                var scrollTop = $(window).scrollTop();
+                var conOffset = mainContainer.offset().top;
 
-            var bottom = scrollTop/2;
+                var percentage = (scrollTop / conOffset);
+                percentage = percentage > 1 ? 1 : percentage;
+                percentage = percentage < 0 ? 0 : percentage;
 
-            if(bottom < headerHeight/2) headerOuter.css('bottom', bottom);
-            headerText.css('opacity', 1-percentage);
-            mainNav.css('background', 'rgba(0,0,0,'+(percentage * 0.8)+')');
+                var bottom = scrollTop / 2;
 
-            if(scrollTop < 0){
-                header.css('height', headerHeight - scrollTop)
-            }else{
-                if(parseInt(header.css('height'), 10) != headerHeight) header.css('height', headerHeight);
+                if (bottom < headerHeight / 2) headerOuter.css('bottom', bottom);
+                headerText.css('opacity', 1 - percentage);
+                mainNav.css('background', 'rgba(0,0,0,' + (percentage * 0.8) + ')');
 
-                if(scrollTop > headerHeight) header.css('display','none');
-                else header.css('display','');
+                if (scrollTop < 0) {
+                    header.css('height', headerHeight - scrollTop)
+                } else {
+                    if (parseInt(header.css('height'), 10) != headerHeight) header.css('height', headerHeight);
+
+                    if (scrollTop > headerHeight) header.css('display', 'none');
+                    else header.css('display', '');
+                }
             }
+
+            positionNav();
+
+            $(window).scroll(positionNav);
+            $(window).on('touchmove', positionNav);
+            $(window).on('resize', positionNav);
         }
-
-        positionNav();
-
-        $(window).scroll(positionNav);
-        $(window).on('touchmove', positionNav);
-        $(window).on('resize', positionNav);
 
     });
 
