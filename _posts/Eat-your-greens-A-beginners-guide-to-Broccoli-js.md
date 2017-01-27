@@ -29,7 +29,8 @@ Then we had webpack that does bundling, minifaction, source maps, but, it's kind
 
 here's a talk I gave at EmberNYC meetup in Jan 2017 that covers most of this article.
 
-<div style="padding-bottom: 56%; position: relative"><iframe style="position: absolute; width: 100%; height: 100%;" src="https://www.youtube.com/embed/JTzvYJBxwyI?start=141&end=1377" frameborder="0" allowfullscreen></iframe></div>
+<div style="padding-bottom: 56%; position: relative"><iframe style="position: absolute; width: 100%; height: 100%;"
+src="https://www.youtube.com/embed/JTzvYJBxwyI?start=141&end=1377" frameborder="0" allowfullscreen></iframe></div>
 
 ## Enter Broccoli.js.
 
@@ -642,7 +643,6 @@ Well that just about sums it up. As you can see, `Broccoli.js` is a pretty power
 bunch of other cool filters and plugins for broccoli [on npm](https://www.npmjs.com/search?q=broccoli-).
 Mix and match, merge, concat, filter to your hearts content.
 
-Hopefully this tutorial has helped you understand how to cook your
-vegetables.
+Hopefully this tutorial has helped you understand how to cook your vegetables.
 
 Peace.
