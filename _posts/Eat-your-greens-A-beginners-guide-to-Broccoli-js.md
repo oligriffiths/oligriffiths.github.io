@@ -25,6 +25,12 @@ Historically, we had grunt, and decided we didn't like configuration files.
 Then we had gulp, because we wanted to write code to compile our code, then it got slow.
 Then we had webpack that does bundling, minifaction, source maps, but, it's kinda hard to configure.
 
+## Follow along
+
+here's a talk I gave at EmberNYC meetup in Jan 2017 that covers most of this article.
+
+<div style="padding-bottom: 56%; position: relative"><iframe style="position: absolute; width: 100%; height: 100%;" src="https://www.youtube.com/embed/JTzvYJBxwyI?start=141&end=1377" frameborder="0" allowfullscreen></iframe></div>
+
 ## Enter Broccoli.js.
 
 So, how is Broccoli any different. Well, all the aforementioned tools work on the basis of running commands on
