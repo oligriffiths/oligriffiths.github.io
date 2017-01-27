@@ -22,6 +22,14 @@
         <%- post.content %>
       <% } %>
     </div>
+    <% if (!index) { %>
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/<%= page.source %>">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    <% } %>
     <footer class="article-footer">
       <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link">Share</a>
       <% if (post.comments && config.disqus_shortname && post.title != "About"){ %>
