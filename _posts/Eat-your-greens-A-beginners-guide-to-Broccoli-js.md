@@ -122,6 +122,14 @@ selecting only the `index.html` file (this can be a regex match also) and moving
 
 Finally, we return the tree as the module export, and Broccoli handles all the rest.
 
+The Broccoli CLI tool allows you to build the application as follows:
+
+```
+broccoli build [target]
+```
+
+Where `[target]` is an output directory of your choosing. We will use `dist` going forwards.
+
 Cool, let's try running this:
 
 ```
@@ -136,7 +144,7 @@ index.html
 
 Simple.
 
-Note: when re-running the build command, you must remove the existing target dir (dist);
+Note: when re-running the build command, you must remove the existing target directory [`dist`];
 
 ```
 rm -rf dist && broccoli build dist
