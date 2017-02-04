@@ -69,7 +69,7 @@ It sounds like a lot, but it's actually quite simple, so let's get started with 
 ```
 mkdir broccoli-demo
 cd broccoli-demo
-npm install -g broccoli
+npm install -g broccoli-cli
 npm init
 npm install --save-dev broccoli
 mkdir app
