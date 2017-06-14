@@ -317,7 +317,7 @@ In `app/styles/app.scss` put:
 ```scss
 $body-color: palegreen;
 html{
-  background: \$body-color;
+  background: $body-color;
   border: 5px solid green;
 }
 ```
