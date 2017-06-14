@@ -82,6 +82,8 @@ application, and provide a built in express local development server.
  
 The Brocfile.js will contain all our build instructions, and the `app` directory will contain our source files.
 
+We've started with the simplest of apps, an index.html file with "hello world" in it. (This is the echo line above).
+
 Next, we'll start building out our Brocfile.js to add some basic build instructions.
 
 
@@ -125,10 +127,10 @@ Finally, we return the tree as the module export, and Broccoli handles all the r
 The Broccoli CLI tool allows you to build the application as follows:
 
 ```
-broccoli build [target]
+broccoli build [target directory]
 ```
 
-Where `[target]` is an output directory of your choosing. We will use `dist` going forwards.
+Where `[target directory]` is an output directory of your choosing. We will use `dist` going forwards.
 
 Cool, let's try running this:
 
@@ -149,6 +151,18 @@ Note: when re-running the build command, you must remove the existing target dir
 ```
 rm -rf dist && broccoli build dist
 ```
+
+In order to make this simpler going forwards, let's add a build script to our `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist"
+  }
+}
+```
+
+Now you can simply run `npm run build` to generate a new build.
 
 
 ## Built in build server
@@ -172,15 +186,26 @@ should see Broccoli rebuild once you save the file, and output the build time fo
 
 Well done, you've now built your first Broccoli powered app!
 
+Let's add an npm script to run the serve command to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist",
+    "serve": "broccoli serve"
+  }
+}
+```
+
+
 ### Note:
 
-From now on, I will refer to running the build command, and the serve command as `build & serve` to keep things short:
+From now on, I will refer to running the build command, and the serve command as `npm run build` and `npm run serve`
+to keep things short.
 
-```
-rm -rf dist && broccoli build dist && broccoli serve
-```
+When I say `build & serve` this is an alias for `npm run build && npm run serve`.
 
-And assume you know to refresh the browser on `localhost:4200`.
+I will assume you know to refresh the browser on `localhost:4200` when serving.
 
 
 ## Multiple trees
@@ -198,9 +223,25 @@ Now let's add a JS and a CSS file that'll be the root of our web app and copy th
 
 ```
 mkdir app/styles
-echo 'html{ background: palegreen; }' > app/styles/app.css
-echo 'alert("Eat your greens");' > app/app.js
-echo '<!doctype html><html>
+touch app/styles/app.css
+touch app/app.js
+```
+
+In `app/styles/app.css` put:
+```css
+html{
+    background: palegreen;
+}
+```
+
+In `app/app.js` put:
+```js
+alert("Eat your greens");
+```
+
+In `app/index.html` put:
+```html
+<!doctype html><html>
 <head>
     <link rel="stylesheet" href="/assets/app.css" />
 </head>
@@ -208,7 +249,7 @@ echo '<!doctype html><html>
 hello world
 <script src="/assets/app.js"></script>
 </body>
-</html>' > app/index.html
+</html>
 ```
 
 ```js
@@ -247,7 +288,7 @@ target directory.
 
 Now `build & serve`, you should get an alert message saying `Eat your greens` with a nice pale green background.
 
-And the target `dist` directory should contain:
+The target `dist` directory should contain:
  
 ```
 assets/app.js
@@ -270,11 +311,15 @@ plugin.
 ```
 npm install --save-dev broccoli-sass-source-maps
 mv app/styles/app.css app/styles/app.scss
-echo "$body-color: palegreen;
+```
+
+In `app/styles/app.scss` put:
+```scss
+$body-color: palegreen;
 html{
   background: \$body-color;
   border: 5px solid green;
-}" > app/styles/app.scss
+}
 ```
 
 ```js
@@ -565,7 +610,7 @@ Here are the changes:
 4. Define a destination for the resulting rolled up build, and enable sourceMaps.
 5. Run this tree through babel to transpile to ES5
 
-Now `build & serve` and notice that the `requre()` error has gone, and it console logs out `foo`, all is
+Now `build & serve` and notice that the `require()` error has gone, and it console logs out `foo`, all is
 good in the world!
 
 But wait, there's more...
