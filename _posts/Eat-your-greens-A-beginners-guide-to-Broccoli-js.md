@@ -672,7 +672,48 @@ npm install --save-dev broccoli-livereload
 
 ```js
 // Brocfile.js - add this line to the top
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps');
+const babel = require('broccoli-babel-transpiler');
+const Rollup = require('broccoli-rollup');
 const LiveReload = require('broccoli-livereload');
+
+const appRoot = 'app';
+
+// Copy HTML file from app root to destination
+const html = funnel(appRoot, {
+  files : ['index.html'],
+  destDir : '/'
+});
+
+// Rollup dependencies
+let js = new Rollup(appRoot, {
+  inputFiles: ['**/*.js'],
+  rollup: {
+    entry: 'app.js',
+    dest: 'assets/app.js',
+    sourceMap: 'inline'
+  }
+});
+
+// Transpile to ES5
+js = babel(js, {
+  browserPolyfill: true,
+  sourceMap: 'inline',
+});
+
+// Copy CSS file into assets
+const css = compileSass(
+  [appRoot],
+  'styles/app.scss',
+  'assets/app.css',
+  {
+    sourceMap: true,
+    sourceMapEmbed: true,
+    sourceMapContents: true,
+  }
+);
 
 // Remove the existing module.exports and replace with:
 let tree = merge([html, js, css]);
@@ -689,6 +730,96 @@ Now `build & serve`, try changing a `scss` file, notice how the css refreshes in
 refresh. Change a `.js` or `.html` file and the page will refresh. This doesn't support fancy hot
 reloading like React and Webpack does, but that's a slightly different ballgame, and I'm sure someone
 clever will work that out.
+
+
+## Environments
+
+Environment configuration allows us to include or not include certain things in the build given certain
+configuration options. For example, we probably want to not include live reload for production builds,
+for this we need to have different environments. When building, we can provide an environment flag option.
+So lets go ahead and configure things to support this.
+
+```
+npm install --save-dev broccoli-env
+```
+```js
+// Brocfile.js
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps');
+const babel = require('broccoli-babel-transpiler');
+const Rollup = require('broccoli-rollup');
+const LiveReload = require('broccoli-livereload');
+const env = require('broccoli-env').getEnv();
+
+const appRoot = 'app';
+
+// Copy HTML file from app root to destination
+const html = funnel(appRoot, {
+  files : ['index.html'],
+  destDir : '/'
+});
+
+// Rollup dependencies
+let js = new Rollup(appRoot, {
+  inputFiles: ['**/*.js'],
+  rollup: {
+    entry: 'app.js',
+    dest: 'assets/app.js',
+    sourceMap: 'inline'
+  }
+});
+
+// Transpile to ES5
+js = babel(js, {
+  browserPolyfill: true,
+  sourceMap: 'inline',
+});
+
+// Copy CSS file into assets
+const css = compileSass(
+  [appRoot],
+  'styles/app.scss',
+  'assets/app.css',
+  {
+    sourceMap: true,
+    sourceMapEmbed: true,
+    sourceMapContents: true,
+  }
+);
+
+// Remove the existing module.exports and replace with:
+let tree = merge([html, js, css]);
+
+// Include live reaload server
+if (env === 'development') {
+  tree = new LiveReload(tree, {
+    target: 'index.html',
+  });
+}
+
+module.exports = tree;
+```
+
+What we've done here is wrapped the `LiveReload` section in an `env === "development"`, this ensures
+the `LiveReload` tree is not included in the build when making a production build.
+
+In order to pass in a different environment, simply add `BROCCOLI_ENV=production` before the build
+command, e.g. `BROCCOLI_ENV=production broccoli build dist`. To make this simpler, lets add a new run
+command in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist",
+    "build-prod": "rm -rf dist && BROCCOLI_ENV=production broccoli build dist",
+    "serve": "broccoli serve"
+  }
+}
+```
+
+Now, running `npm run build-prod` will build in "production" mode.
+
 
 ## Conclusion
 
