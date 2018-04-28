@@ -69,7 +69,7 @@ It sounds like a lot, but it's actually quite simple, so let's get started with 
 ```
 mkdir broccoli-demo
 cd broccoli-demo
-npm install -g broccoli
+npm install -g broccoli-cli
 npm init
 npm install --save-dev broccoli
 mkdir app
@@ -81,6 +81,8 @@ This is the basic setup for our broccoli app. We've installed the broccoli CLI t
 application, and provide a built in express local development server.
  
 The Brocfile.js will contain all our build instructions, and the `app` directory will contain our source files.
+
+We've started with the simplest of apps, an index.html file with "hello world" in it. (This is the echo line above).
 
 Next, we'll start building out our Brocfile.js to add some basic build instructions.
 
@@ -125,10 +127,10 @@ Finally, we return the tree as the module export, and Broccoli handles all the r
 The Broccoli CLI tool allows you to build the application as follows:
 
 ```
-broccoli build [target]
+broccoli build [target directory]
 ```
 
-Where `[target]` is an output directory of your choosing. We will use `dist` going forwards.
+Where `[target directory]` is an output directory of your choosing. We will use `dist` going forwards.
 
 Cool, let's try running this:
 
@@ -149,6 +151,18 @@ Note: when re-running the build command, you must remove the existing target dir
 ```
 rm -rf dist && broccoli build dist
 ```
+
+In order to make this simpler going forwards, let's add a build script to our `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist"
+  }
+}
+```
+
+Now you can simply run `npm run build` to generate a new build.
 
 
 ## Built in build server
@@ -172,15 +186,26 @@ should see Broccoli rebuild once you save the file, and output the build time fo
 
 Well done, you've now built your first Broccoli powered app!
 
+Let's add an npm script to run the serve command to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist",
+    "serve": "broccoli serve"
+  }
+}
+```
+
+
 ### Note:
 
-From now on, I will refer to running the build command, and the serve command as `build & serve` to keep things short:
+From now on, I will refer to running the build command, and the serve command as `npm run build` and `npm run serve`
+to keep things short.
 
-```
-rm -rf dist && broccoli build dist && broccoli serve
-```
+When I say `build & serve` this is an alias for `npm run build && npm run serve`.
 
-And assume you know to refresh the browser on `localhost:4200`.
+I will assume you know to refresh the browser on `localhost:4200` when serving.
 
 
 ## Multiple trees
@@ -198,9 +223,25 @@ Now let's add a JS and a CSS file that'll be the root of our web app and copy th
 
 ```
 mkdir app/styles
-echo 'html{ background: palegreen; }' > app/styles/app.css
-echo 'alert("Eat your greens");' > app/app.js
-echo '<!doctype html><html>
+touch app/styles/app.css
+touch app/app.js
+```
+
+In `app/styles/app.css` put:
+```css
+html{
+    background: palegreen;
+}
+```
+
+In `app/app.js` put:
+```js
+alert("Eat your greens");
+```
+
+In `app/index.html` put:
+```html
+<!doctype html><html>
 <head>
     <link rel="stylesheet" href="/assets/app.css" />
 </head>
@@ -208,7 +249,7 @@ echo '<!doctype html><html>
 hello world
 <script src="/assets/app.js"></script>
 </body>
-</html>' > app/index.html
+</html>
 ```
 
 ```js
@@ -247,7 +288,7 @@ target directory.
 
 Now `build & serve`, you should get an alert message saying `Eat your greens` with a nice pale green background.
 
-And the target `dist` directory should contain:
+The target `dist` directory should contain:
  
 ```
 assets/app.js
@@ -270,11 +311,15 @@ plugin.
 ```
 npm install --save-dev broccoli-sass-source-maps
 mv app/styles/app.css app/styles/app.scss
-echo "$body-color: palegreen;
+```
+
+In `app/styles/app.scss` put:
+```scss
+$body-color: palegreen;
 html{
-  background: \$body-color;
+  background: $body-color;
   border: 5px solid green;
-}" > app/styles/app.scss
+}
 ```
 
 ```js
@@ -565,7 +610,7 @@ Here are the changes:
 4. Define a destination for the resulting rolled up build, and enable sourceMaps.
 5. Run this tree through babel to transpile to ES5
 
-Now `build & serve` and notice that the `requre()` error has gone, and it console logs out `foo`, all is
+Now `build & serve` and notice that the `require()` error has gone, and it console logs out `foo`, all is
 good in the world!
 
 But wait, there's more...
@@ -627,7 +672,48 @@ npm install --save-dev broccoli-livereload
 
 ```js
 // Brocfile.js - add this line to the top
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps');
+const babel = require('broccoli-babel-transpiler');
+const Rollup = require('broccoli-rollup');
 const LiveReload = require('broccoli-livereload');
+
+const appRoot = 'app';
+
+// Copy HTML file from app root to destination
+const html = funnel(appRoot, {
+  files : ['index.html'],
+  destDir : '/'
+});
+
+// Rollup dependencies
+let js = new Rollup(appRoot, {
+  inputFiles: ['**/*.js'],
+  rollup: {
+    entry: 'app.js',
+    dest: 'assets/app.js',
+    sourceMap: 'inline'
+  }
+});
+
+// Transpile to ES5
+js = babel(js, {
+  browserPolyfill: true,
+  sourceMap: 'inline',
+});
+
+// Copy CSS file into assets
+const css = compileSass(
+  [appRoot],
+  'styles/app.scss',
+  'assets/app.css',
+  {
+    sourceMap: true,
+    sourceMapEmbed: true,
+    sourceMapContents: true,
+  }
+);
 
 // Remove the existing module.exports and replace with:
 let tree = merge([html, js, css]);
@@ -644,6 +730,96 @@ Now `build & serve`, try changing a `scss` file, notice how the css refreshes in
 refresh. Change a `.js` or `.html` file and the page will refresh. This doesn't support fancy hot
 reloading like React and Webpack does, but that's a slightly different ballgame, and I'm sure someone
 clever will work that out.
+
+
+## Environments
+
+Environment configuration allows us to include or not include certain things in the build given certain
+configuration options. For example, we probably want to not include live reload for production builds,
+for this we need to have different environments. When building, we can provide an environment flag option.
+So lets go ahead and configure things to support this.
+
+```
+npm install --save-dev broccoli-env
+```
+```js
+// Brocfile.js
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps');
+const babel = require('broccoli-babel-transpiler');
+const Rollup = require('broccoli-rollup');
+const LiveReload = require('broccoli-livereload');
+const env = require('broccoli-env').getEnv();
+
+const appRoot = 'app';
+
+// Copy HTML file from app root to destination
+const html = funnel(appRoot, {
+  files : ['index.html'],
+  destDir : '/'
+});
+
+// Rollup dependencies
+let js = new Rollup(appRoot, {
+  inputFiles: ['**/*.js'],
+  rollup: {
+    entry: 'app.js',
+    dest: 'assets/app.js',
+    sourceMap: 'inline'
+  }
+});
+
+// Transpile to ES5
+js = babel(js, {
+  browserPolyfill: true,
+  sourceMap: 'inline',
+});
+
+// Copy CSS file into assets
+const css = compileSass(
+  [appRoot],
+  'styles/app.scss',
+  'assets/app.css',
+  {
+    sourceMap: true,
+    sourceMapEmbed: true,
+    sourceMapContents: true,
+  }
+);
+
+// Remove the existing module.exports and replace with:
+let tree = merge([html, js, css]);
+
+// Include live reaload server
+if (env === 'development') {
+  tree = new LiveReload(tree, {
+    target: 'index.html',
+  });
+}
+
+module.exports = tree;
+```
+
+What we've done here is wrapped the `LiveReload` section in an `env === "development"`, this ensures
+the `LiveReload` tree is not included in the build when making a production build.
+
+In order to pass in a different environment, simply add `BROCCOLI_ENV=production` before the build
+command, e.g. `BROCCOLI_ENV=production broccoli build dist`. To make this simpler, lets add a new run
+command in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist",
+    "build-prod": "rm -rf dist && BROCCOLI_ENV=production broccoli build dist",
+    "serve": "broccoli serve"
+  }
+}
+```
+
+Now, running `npm run build-prod` will build in "production" mode.
+
 
 ## Conclusion
 
