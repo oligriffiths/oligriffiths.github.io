@@ -95,3 +95,12 @@ deploy:
   repo: git@github.com:oligriffiths/oligriffiths.github.io.git
   branch: master
   message: hexo deploy
+
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: false
+  smartLists: true
+  smartypants: false
