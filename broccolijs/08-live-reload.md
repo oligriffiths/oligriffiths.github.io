@@ -87,7 +87,7 @@ module.exports = tree;
 What we're doing here is assigning the final output of `Merge` to a mutable variable `tree`, then passing that into the
 `LiveReload` plugin, that will auto-inject the Live Reload javascript and setup the server file watcher.
 
-Now `yum serve`, try changing a `scss` file, notice how the css refreshes in place, no browser refresh. Change a
+Now `yarn serve`, try changing a `scss` file, notice how the css refreshes in place, no browser refresh. Change a
 `.js` or `.html` file and the page will refresh. This doesn't support fancy hot reloading like React and Webpack does,
 but that's a slightly different ballgame, and is very architecture dependent.
 
