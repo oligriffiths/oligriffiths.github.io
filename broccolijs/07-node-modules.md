@@ -123,4 +123,4 @@ versions of those modules
 
 Completed Branch: [07-node-modules](https://github.com/oligriffiths/broccolijs-tutorial/tree/07-node-modules)
 
-Next: [07-node-modules](08-live-reload.html)
+Next: [08-live-reload](08-live-reload.html)
