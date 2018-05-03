@@ -6,6 +6,8 @@ Congratulations, you've just built your first Broccoli pipeline.
 
 ![](https://cdn.drawception.com/images/panels/2017/7-1/8nMySD2xOC-8.png)
 
+If you enjoyed this tutorial, please follow me on twitter [@oligriffiths](http://twitter.com/oligriffiths)
+
 Watch this space for further updates to this series, including a [React](https://reactjs.org/) application and a
 [Glimmer.js](https://glimmerjs.com/) application.
 
