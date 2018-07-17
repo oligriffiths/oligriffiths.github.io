@@ -17,8 +17,9 @@ release. This is currently behind an experiment flag. Read on to find out how yo
 First, a bit of history. Ember-CLI forked Broccoli back in 2015 to [broccoli-builder](https://github.com/ember-cli/broccoli-builder)
 in order to add features to the core library that were not accepted as upstream changes. From that point on, work happened
 in parallel, with updates being back-ported from the Broccoli master repo into the fork. Since then multiple contributions
-to the Broccoli master repo have been accepted, and in 2017, Stefan Penner and Robert Jackson did a huge amount of work
-rewriting Broccoli into ES6 format, and re-architected the internals.
+to the Broccoli master repo have been accepted, and in 2017, Stefan Penner [@stefanpenner](https://twitter.com/stefanpenner)
+and Robert Jackson [@rwjblue](https://twitter.com/rwjblue) did a huge amount of work rewriting Broccoli into ES6 format,
+and re-architected the internals.
 
 As such, the divergence has become so great that backporting is no longer possible. That, along with some issues with
 `broccoli-builder` that folks have had, especially with the `tmp` directory being within the project directory, meant that
