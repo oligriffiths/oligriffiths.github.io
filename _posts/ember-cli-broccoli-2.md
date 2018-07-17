@@ -5,7 +5,7 @@ tags:
 date: 2018-07-17 12:00:00
 ---
 
-I recently completed work on updating [Ember-Cli](https://embercli.com) to use the new [Broccoli 2.0](https://github.com/broccolijs/broccoli)
+I recently completed work on updating [Ember-CLI](https://embercli.com) to use the new [Broccoli 2.0](https://github.com/broccolijs/broccoli)
 release. This is currently behind an experiment flag. Read on to find out how you can test it out.
 
 ![broccoli](/broccolijs/assets/broccoli-logo.png)
