@@ -23,7 +23,7 @@ and re-architected the internals.
 
 As such, the divergence has become so great that backporting is no longer possible. That, along with some issues with
 `broccoli-builder` that folks have had, especially with the `tmp` directory being within the project directory, meant that
-the Ember-CLI team decided to back to upstream some fixes from `broccoli-builder` into `master`, and then update Ember-CLI
+the Ember-CLI team decided to upstream some fixes from `broccoli-builder` into `master`, and then update Ember-CLI
 to use the newly updated Broccoli master.
 
 I was fortunate enough to be invited to join the Ember-CLI face-to-face after [EmberConf 2018](http://emberconf.com/)
