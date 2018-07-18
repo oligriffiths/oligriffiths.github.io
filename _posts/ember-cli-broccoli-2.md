@@ -35,6 +35,10 @@ Work then began over the following months, to upstream some required changes tha
 the main Broccoli repository, as well as integrating the main Broccoli library back into Ember-CLI in parallel with
 `broccoli-builder`, so that it can be tested side-by-side under the experiment functionality of Ember-CLI.
 
+## Note
+
+There is currently a known bug with `ember serve` causing rebuilds to not work, we are working to fix this.
+
 ## Usage
 
 In order to test out the new Broccoli 2.0 release in Ember-CLI you must do 2 things, update Ember-CLI to use `master`
@@ -68,6 +72,8 @@ Now try running serve:
 EMBER_CLI_BROCCOLI_2=true ember serve
 ```
 
+Note: There is currently a known bug with `ember serve` causing rebuilds to not work, we are working to fix this.
+
 If you experience any errors when using the experiment enabled that you do not get when running without the experiment,
 please hop onto the [Ember community slack](https://embercommunity.slack.com/messages/C0CRP360G) and let us know, or
 submit an issue to [github](https://github.com/ember-cli/ember-cli/issues), please make sure you include:
@@ -95,6 +101,8 @@ Or to serve:
 ```
 EMBER_CLI_BROCCOLI_2=true EMBER_CLI_SYSTEM_TEMP=true ember serve
 ```
+
+Note: There is currently a known bug with `ember serve` causing rebuilds to not work, we are working to fix this.
 
 When serving, you should notice that the `tmp` directory is not created in the project. Note that `EMBER_CLI_SYSTEM_TEMP` only
 works in combination with `EMBER_CLI_BROCCOLI_2`.
