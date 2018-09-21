@@ -53,26 +53,30 @@ Here's what the website says:
 > Rollup is a next-generation JavaScript module bundler. Author your app or library using ES2015 modules, then 
 efficiently bundle them up into a single file for use in browsers and Node.js
 
-So, first off, install rollup:
+So, first off, install rollup (and remove babel dependencies, provided by rollup-plugin-babel):
 
 ```sh
-yarn add --dev broccoli-rollup rollup-plugin-babel@^6.1.4
+yarn add --dev rollup@^0.66.2 broccoli-rollup@^2.1.1 rollup-plugin-babel@^4.0.3
+yarn remove broccoli-babel-transpiler @babel/preset-env @babel/plugin-external-helpers
 ```
+
+Note: we're removing `broccoli-babel-transpiler` `@babel/preset-env` and `@babel/plugin-external-helpers` as these are
+provided by `rollup-plugin-babel`.
 
 And set your `Brocfile.js` file to:
 
 ```js
 // Brocfile.js
-const Funnel = require("broccoli-funnel");
-const Merge = require("broccoli-merge-trees");
-const CompileSass = require("broccoli-sass-source-maps");
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
 const Rollup = require("broccoli-rollup");
 const babel = require("rollup-plugin-babel");
 
-const appRoot = "app";
+const appRoot = 'app';
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
@@ -97,10 +101,10 @@ let js = new Rollup(appRoot, {
 });
 
 // Copy CSS file into assets
-const css = new CompileSass(
+const css = compileSass(
   [appRoot],
-  "styles/app.scss",
-  "assets/app.css",
+  'styles/app.scss',
+  'assets/app.css',
   {
     sourceMap: true,
     sourceMapContents: true,
@@ -109,11 +113,11 @@ const css = new CompileSass(
 );
 
 // Copy public files into destination
-const public = new Funnel("public", {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
-module.exports = new Merge([html, js, css, public], {annotation: "Final output"});
+module.exports = merge([html, js, css, public], {annotation: "Final output"});
 ```
 
 Here are the changes:

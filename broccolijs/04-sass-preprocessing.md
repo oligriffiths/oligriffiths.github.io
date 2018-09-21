@@ -13,7 +13,7 @@ For this, we will use the excellent [broccoli-sass-source-maps](https://github.c
 plugin.
 
 ```sh
-yarn add --dev broccoli-sass-source-maps@^2.2.0
+yarn add --dev broccoli-sass-source-maps@^4.0.0 sass@^1.14.0
 
 mv app/styles/app.css app/styles/app.scss
 ```
@@ -30,41 +30,43 @@ html {
 
 ```js
 // Brocfile.js
-const Funnel = require("broccoli-funnel");
-const Merge = require("broccoli-merge-trees");
-const CompileSass = require("broccoli-sass-source-maps");
+const funnel = require("broccoli-funnel");
+const merge = require("broccoli-merge-trees");
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
 
 const appRoot = "app";
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
 
 // Copy JS file into assets
-const js = new Funnel(appRoot, {
+const js = funnel(appRoot, {
   files: ["app.js"],
   destDir: "/assets",
   annotation: "JS files",
 });
 
 // Compile sass files
-const css = new CompileSass(
+const css = compileSass(
   [appRoot],
   "styles/app.scss",
   "assets/app.css",
   {
-    annotation: "Sass files",
+    sourceMap: true,
+    sourceMapContents: true,
+    annotation: "Sass files"
   }
 );
 
 // Copy public files into destination
-const public = new Funnel('public', {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
-module.exports = new Merge([html, js, css, public], {annotation: "Final output"});
+module.exports = merge([html, js, css, public], {annotation: "Final output"});
 ```
 
 As you can see, we're now using the `compileSass` plugin to transform our `scss` file into a `css` file, and

@@ -10,25 +10,27 @@ invalidating the previous cached versions.
 To do this, we can use a simple plugin called [broccoli-asset-rev](https://github.com/rickharrison/broccoli-asset-rev):
 
 ```sh
-yarn add --dev broccoli-asset-rev@^2.6.0
+yarn add --dev broccoli-asset-rev@^2.7.0
 ```
 
 Now, update your `Brocfile.js`:
 
 ```js
-const Funnel = require("broccoli-funnel");
-const Merge = require("broccoli-merge-trees");
-const EsLint = require("broccoli-lint-eslint");
-const SassLint = require("broccoli-sass-lint");
-const CompileSass = require("broccoli-sass-source-maps");
+// Brocfile.js
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
+const esLint = require("broccoli-lint-eslint");
+const sassLint = require("broccoli-sass-lint");
 const Rollup = require("broccoli-rollup");
 const LiveReload = require('broccoli-livereload');
 const CleanCss = require('broccoli-clean-css');
-const AssetRev = require('broccoli-asset-rev');
-const babel = require("rollup-plugin-babel");
+const log = require('broccoli-stew').log;
+const assetRev = require('broccoli-asset-rev');
+const babel = require('rollup-plugin-babel');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
-const uglify = require('rollup-plugin-uglify');
+const uglify = require('rollup-plugin-uglify').uglify;
 const env = require('broccoli-env').getEnv() || 'development';
 const isProduction = env === 'production';
 
@@ -38,13 +40,13 @@ console.log('Environment: ' + env);
 const appRoot = "app";
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
 
 // Lint js files
-let js = new EsLint(appRoot, {
+let js = esLint(appRoot, {
   persist: true
 });
 
@@ -68,13 +70,12 @@ if (isProduction) {
 }
 
 js = new Rollup(js, {
-  inputFiles: ["**/*.js"],
-  annotation: "JS Transformation",
+  inputFiles: ['**/*.js'],
   rollup: {
-    input: "app.js",
+    input: 'app.js',
     output: {
-      file: "assets/app.js",
-      format: "iife",
+      file: 'assets/app.js',
+      format: 'es',
       sourcemap: !isProduction,
     },
     plugins: rollupPlugins,
@@ -82,15 +83,15 @@ js = new Rollup(js, {
 });
 
 // Lint css files
-let css = new SassLint(appRoot + '/styles', {
+let css = sassLint(appRoot + '/styles', {
   disableTestGenerator: true,
 });
 
 // Copy CSS file into assets
-css = new CompileSass(
-  [css],
-  "app.scss",
-  "assets/app.css",
+css = compileSass(
+  [appRoot],
+  'styles/app.scss',
+  'assets/app.css',
   {
     sourceMap: !isProduction,
     sourceMapContents: true,
@@ -104,17 +105,22 @@ if (isProduction) {
 }
 
 // Copy public files into destination
-const public = new Funnel("public", {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
 // Remove the existing module.exports and replace with:
-let tree = new Merge([html, js, css, public], {annotation: "Final output"});
+let tree = merge([html, js, css, public], {annotation: "Final output"});
 
 // Include asset hashes
 if (isProduction) {
-  tree = new AssetRev(tree);
+  tree = assetRev(tree);
 } else {
+  // Log the output tree
+  tree = log(tree, {
+    output: 'tree',
+  });
+
   tree = new LiveReload(tree, {
     target: 'index.html',
   });

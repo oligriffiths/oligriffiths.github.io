@@ -7,7 +7,7 @@ debug at what stage a transformation went wrong. Luckily, there is a handy and h
 [broccoli-stew](https://github.com/stefanpenner/broccoli-stew).
 
 ```sh
-yarn add --dev broccoli-stew@^1.5.0
+yarn add --dev broccoli-stew@^2.0.0
 ```
 
 The stew package contains several handy utilities, specifically the `log` and `debug` utilities.

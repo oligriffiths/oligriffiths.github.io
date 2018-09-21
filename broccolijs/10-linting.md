@@ -15,6 +15,7 @@ yarn add --dev broccoli-lint-eslint@^3.3.2 broccoli-sass-lint@^1.1.2
 Now, update your `Brocfile.js` with:
 
 ```js
+// Brocfile.js
 const Funnel = require("broccoli-funnel");
 const Merge = require("broccoli-merge-trees");
 const EsLint = require("broccoli-lint-eslint");

@@ -6,16 +6,14 @@ Well, obviously in dev we'd quite like to not have to hit refresh all the time, 
 well, we're lazy. So we can use a live reload server to do the job for us.
 
 ```sh
-yarn add --dev https://github.com/oligriffiths/broccoli-livereload.git#patch-1
+yarn add --dev broccoli-livereload@^2.1.1
 ```
 
-We're using a patched version of the `broccoli-livereload` plugin as there is bug in the original causing certain files
-not triggering a refresh, you can see my [Pull Request](https://github.com/stfsy/broccoli-livereload/pull/3) for details.
-
 ```js
-const Funnel = require("broccoli-funnel");
-const Merge = require("broccoli-merge-trees");
-const CompileSass = require("broccoli-sass-source-maps");
+// Brocfile.js
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
 const Rollup = require("broccoli-rollup");
 const LiveReload = require('broccoli-livereload');
 const babel = require("rollup-plugin-babel");
@@ -25,7 +23,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const appRoot = "app";
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
@@ -57,10 +55,10 @@ let js = new Rollup(appRoot, {
 });
 
 // Copy CSS file into assets
-const css = new CompileSass(
+const css = compileSass(
   [appRoot],
-  "styles/app.scss",
-  "assets/app.css",
+  'styles/app.scss',
+  'assets/app.css',
   {
     sourceMap: true,
     sourceMapContents: true,
@@ -69,12 +67,12 @@ const css = new CompileSass(
 );
 
 // Copy public files into destination
-const public = new Funnel("public", {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
 // Remove the existing module.exports and replace with:
-let tree = new Merge([html, js, css, public], {annotation: "Final output"});
+let tree = merge([html, js, css, public], {annotation: "Final output"});
 
 // Include live reaload server
 tree = new LiveReload(tree, {

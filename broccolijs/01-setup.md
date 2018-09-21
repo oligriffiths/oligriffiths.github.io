@@ -9,50 +9,76 @@ You're also going to want to use Node 8 as this is the current LTS (long term su
 
 We're going to use [yarn](https://yarnpkg.com) instead of `npm` to ensure our dependencies are in lock step.
 
-Now install the broccoli-cli tool globally:
-
-`yarn global add broccoli-cli`
-
-The `broccoli` command should now be available in your terminal. This CLI tool just checks some basic dependencies in
-the current project before running the main broccoli library. So lets do that next.
-
 Create a new directory for this tutorial and install broccoli:
+
 
 ```sh
 mkdir broccoli-tutorial
 cd broccoli-tutorial
-yarn add --dev broccoli@^1.1.4
+yarn add --dev broccoli@beta broccoli-cli
 ```
+
+The above command will add broccoli and broccoli-cli as dev dependencies of your project. The CLI tool can also be
+installed globally if you wish, it just checks some basic dependencies in the current project before running the main
+broccoli library.
 
 In your `package.json` add the following to the `scripts` node (add this if it's not present):
 
 ```json
 {
-    "scripts": {
-        "clean": "rm -rf dist",
-        "build": "yarn clean && broccoli build dist",
-        "serve": "broccoli serve",
-        "debug-build": "yarn clean && node $NODE_DEBUG_OPTION $(which broccoli) build dist",
-        "debug-serve": "node $NODE_DEBUG_OPTION $(which broccoli) serve"
-    }
+  "scripts": {
+    "build": "broccoli build --overwrite",
+    "serve": "broccoli serve"
+  }
 }
 ```
 
 You can now use `yarn build` and `yarn serve` for convenience.
 
-Note: the `debug-build` and `debug-serve` are for use with [VS Code](https://code.visualstudio.com/) to allow for
-interactive debugging. If you wish to use this, you'll need the files in
-[this directory](https://github.com/oligriffiths/broccolijs-tutorial/tree/00-init/.vscode).
-You can add breakpoints by clicking in the column to the left of the line numbers (on the left) and then hit the
-`debug` icon on the very left side of the screen (looks like a bug) or CMD + SHIFT + D, select `debug-build` from the
-dropdown menu at the top, and click "play".
+### Debugging
 
-Note: the `clean` task is used to remove the `dist` directory before the build, or broccoli complains that the directory
-already exists.
+If you use [VS Code](https://code.visualstudio.com/) or an Intellij product from [Jetbrains](https://www.jetbrains.com/)
+you can enable interactive debugging via a few simple steps. First, replace the scripts above with the following:
 
-### Brocfile.js
+```json
+{
+  "scripts": {
+    "build": "node $NODE_DEBUG_OPTION $(which broccoli) build --overwrite",
+    "serve": "node $NODE_DEBUG_OPTION $(which broccoli) serve"
+  }
+}
+```
 
-A `Brocfile.js` must live in the root of your project, this is what will contain your build pipeline.
+#### VSCode
+
+After this, you'll need the files in [this directory](https://github.com/oligriffiths/broccolijs-tutorial/tree/00-init/.vscode).
+
+Once you have those in your project, you'll see the `Build - Debug` and `Serve - Debug` in your debug tab, see
+[the VSCode docs](https://code.visualstudio.com/docs/editor/debugging) for more details on debugging.
+
+![VSCode debug window](/broccolijs/assets/vscode-debug.png)
+
+#### Intellij
+
+Select `Run > Edit Configurations` from the menu bar, click the `+` in the top right hand corner, and select `npm`.
+Name the configuration `Build`, ensure `run` is selected in the `command` entry, and select `build` from the `scripts`
+dropdown, and hit apply. Repeat for the `serve` script.
+
+![intellij debug window](/broccolijs/assets/intellij-debug.png)
+
+You can now add breakpoints by clicking in the column to the left of the line numbers (on the left) and then proceed to
+invoke a debugging session:
+
+VSCode:
+![VSCode debug controls](/broccolijs/assets/vscode-debug-controls.png)
+
+Intellij:
+![intellij debug controls](/broccolijs/assets/intellij-debug-controls.png)Screenshot 2018-09-20 18.57.10
+
+## The build file
+
+Broccoli uses a file called `Brocfile.js` that must live in the root of your project, this is what will contain your
+build pipeline.
 
 So create a `Brocfile.js` in the root of your project, with the contents: 
 

@@ -15,13 +15,15 @@ Note, the `broccoli-stew` package also comes with an `env` utility, with a sligh
 the environment name, and I want to be able to print it to the console, so I'm using the `broccoli-env` package instead.
 
 ```js
-const Funnel = require("broccoli-funnel");
-const Merge = require("broccoli-merge-trees");
-const EsLint = require("broccoli-lint-eslint");
-const SassLint = require("broccoli-sass-lint");
-const CompileSass = require("broccoli-sass-source-maps");
+// Brocfile.js
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
+const esLint = require("broccoli-lint-eslint");
+const sassLint = require("broccoli-sass-lint");
 const Rollup = require("broccoli-rollup");
 const LiveReload = require('broccoli-livereload');
+const log = require('broccoli-stew').log;
 const babel = require("rollup-plugin-babel");
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
@@ -34,13 +36,13 @@ console.log('Environment: ' + env);
 const appRoot = "app";
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
 
 // Lint js files
-let js = new EsLint(appRoot, {
+let js = esLint(appRoot, {
   persist: true
 });
 
@@ -71,15 +73,15 @@ js = new Rollup(js, {
 });
 
 // Lint css files
-let css = new SassLint(appRoot + '/styles', {
+let css = sassLint(appRoot + '/styles', {
   disableTestGenerator: true,
 });
 
 // Copy CSS file into assets
-css = new CompileSass(
-  [css],
-  "app.scss",
-  "assets/app.css",
+css = compileSass(
+  [appRoot],
+  'styles/app.scss',
+  'assets/app.css',
   {
     sourceMap: !isProduction,
     sourceMapContents: true,
@@ -88,15 +90,20 @@ css = new CompileSass(
 );
 
 // Copy public files into destination
-const public = new Funnel("public", {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
 // Remove the existing module.exports and replace with:
-let tree = new Merge([html, js, css, public], {annotation: "Final output"});
+let tree = merge([html, js, css, public], {annotation: "Final output"});
 
 // Include live reaload server
 if (!isProduction) {
+  // Log the output tree
+  tree = log(tree, {
+    output: 'tree',
+  });
+
   tree = new LiveReload(tree, {
     target: 'index.html',
   });
@@ -105,8 +112,8 @@ if (!isProduction) {
 module.exports = tree;
 ```
 
-What we've done here is wrapped the `LiveReload` section in an `env === "development"`, this ensures the `LiveReload`
-tree is not included in the build when making a production build.
+What we've done here is wrapped the `debug` and `LiveReload` section in an `env === "development"`, this ensures the
+`debug` and `LiveReload` trees are not included in the build when making a production build.
 
 In order to pass in a different environment, simply add `BROCCOLI_ENV=production` before the build command, e.g.
 `BROCCOLI_ENV=production broccoli build dist`. To make this simpler, lets add a new run command in `package.json`:
@@ -114,12 +121,9 @@ In order to pass in a different environment, simply add `BROCCOLI_ENV=production
 ```json
 {
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "yarn clean && broccoli build dist",
-    "build-prod": "yarn clean && BROCCOLI_ENV=production broccoli build dist",
-    "serve": "broccoli serve",
-    "debug-build": "yarn clean && node $NODE_DEBUG_OPTION $(which broccoli) build dist",
-    "debug-serve": "node $NODE_DEBUG_OPTION $(which broccoli) serve"
+    "build": "node $NODE_DEBUG_OPTION $(which broccoli) build --overwrite",
+    "serve": "node $NODE_DEBUG_OPTION $(which broccoli) serve",
+    "build-prod": "BROCCOLI_ENV=production node $NODE_DEBUG_OPTION $(which broccoli) build --overwrite"
   }
 }
 ```

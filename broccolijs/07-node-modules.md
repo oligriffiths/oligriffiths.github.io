@@ -6,18 +6,16 @@ Rollup only knows about your code by default, it has no idea about `node_modules
 we must configure it to know how to resolve node modules you might import.
 
 ```sh
-yarn add --dev rollup-plugin-node-resolve@^3.2.0 rollup-plugin-commonjs@^8.4.1
+yarn add --dev rollup-plugin-node-resolve@^3.4.0 rollup-plugin-commonjs@^9.1.8
 ```
-
-Note: we need to use `rollup-plugin-commonjs@^8.4.1` as the newer version relies on a Rollup.js version above the
-`broccoli-rollup` version.
 
 Now update your `Brocfile.js`:
 
 ```js
-const Funnel = require("broccoli-funnel");
-const Merge = require("broccoli-merge-trees");
-const CompileSass = require("broccoli-sass-source-maps");
+// Brocfile.js
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
 const Rollup = require("broccoli-rollup");
 const babel = require("rollup-plugin-babel");
 const nodeResolve = require('rollup-plugin-node-resolve');
@@ -26,7 +24,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const appRoot = "app";
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
@@ -58,10 +56,10 @@ let js = new Rollup(appRoot, {
 });
 
 // Copy CSS file into assets
-const css = new CompileSass(
+const css = compileSass(
   [appRoot],
-  "styles/app.scss",
-  "assets/app.css",
+  'styles/app.scss',
+  'assets/app.css',
   {
     sourceMap: true,
     sourceMapContents: true,
@@ -70,11 +68,11 @@ const css = new CompileSass(
 );
 
 // Copy public files into destination
-const public = new Funnel("public", {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
-module.exports = new Merge([html, js, css, public], {annotation: "Final output"});
+module.exports = merge([html, js, css, public], {annotation: "Final output"});
 ```
 
 And update `app/app.js` with:

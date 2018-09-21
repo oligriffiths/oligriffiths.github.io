@@ -11,7 +11,7 @@ ES5 syntax javascript that is runnable in the browser. For this, we will require
 [broccoli-babel-transpiler](https://github.com/babel/broccoli-babel-transpiler).
  
 ```sh
-yarn add --dev broccoli-babel-transpiler babel-preset-env babel-plugin-external-helpers
+yarn add --dev @babel/core@^7.1.0 broccoli-babel-transpiler@^7.0.0 @babel/preset-env@^7.1.0 @babel/plugin-external-helpers@^7.0.0
 ```
 
 Now open `app/app.js` and set the contents to:
@@ -32,37 +32,37 @@ And `Brocfile.js`
 
 ```js
 // Brocfile.js
-const Funnel = require('broccoli-funnel');
-const Merge = require('broccoli-merge-trees');
-const CompileSass = require('broccoli-sass-source-maps');
-const Babel = require('broccoli-babel-transpiler');
+const funnel = require('broccoli-funnel');
+const merge = require('broccoli-merge-trees');
+const compileSass = require('broccoli-sass-source-maps')(require('sass'));
+const babel = require('broccoli-babel-transpiler');
 
 const appRoot = 'app';
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   annotation: "Index file",
 });
 
 // Copy JS file into assets
-let js = new Funnel(appRoot, {
+let js = funnel(appRoot, {
   files: ["app.js"],
   destDir: "/assets",
   annotation: "JS files",
 });
 
 // Transpile JS files to ES5
-js = new Babel(js, {
+js = babel(js, {
   browserPolyfill: true,
-  sourceMap: "inline",
+  sourceMap: 'inline',
 });
 
 // Copy CSS file into assets
-const css = new CompileSass(
+const css = compileSass(
   [appRoot],
-  "styles/app.scss",
-  "assets/app.css",
+  'styles/app.scss',
+  'assets/app.css',
   {
     sourceMap: true,
     sourceMapContents: true,
@@ -71,12 +71,11 @@ const css = new CompileSass(
 );
 
 // Copy public files into destination
-const public = new Funnel('public', {
+const public = funnel('public', {
   annotation: "Public files",
 });
 
-module.exports = new Merge([html, js, css, public], {annotation: "Final output"});
-
+module.exports = merge([html, js, css, public], {annotation: "Final output"});
 ```
 
 Make a `.babelrc` file in the root directory:
@@ -84,7 +83,7 @@ Make a `.babelrc` file in the root directory:
 {
   "presets": [
     [
-      "env",
+      "@babel/env",
       {
         "targets": {
           "browsers": ["last 2 versions"]
@@ -93,7 +92,7 @@ Make a `.babelrc` file in the root directory:
     ]
   ],
   "plugins": [
-    "external-helpers"
+    "@babel/plugin-external-helpers"
   ]
 }
 ```

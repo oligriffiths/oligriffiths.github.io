@@ -15,12 +15,12 @@ Now update your `Brocfile.js`
 
 ```js
 // Brocfile.js
-const Funnel = require("broccoli-funnel");
+const funnel = require("broccoli-funnel");
 
 const appRoot = "app";
 
 // Copy HTML file from app root to destination
-const html = new Funnel(appRoot, {
+const html = funnel(appRoot, {
   files: ["index.html"],
   destDir: "/",
   annotation: 'Index file',
@@ -45,6 +45,12 @@ printed out to the console, you'll see this label, useful for tracking down bugs
 option to all plugins.
 
 Finally, we return the node as the module export, and Broccoli handles all the rest.
+
+Note: You may see examples that use `new funnel()` as a way to create an instance of a plugin, however this is a practice
+that the Broccoli.js team are trying to move away from, with the intention being that Broccoli is like a functional
+programming language, where the input of one function is the output of another, to build up a "tree" structure.
+Calling plugins as functions conceptually fits better with the way Broccoli is architectured, and this will become the
+defacto way of building pipelines in the future.
 
 Running `yarn build` won't really produce any different output, as we only have one file right now, so let's try
 adding some more files in the next step.
