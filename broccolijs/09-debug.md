@@ -49,12 +49,12 @@ printing the state to the console, it writes it to disk.
 
 To use the debug utility:
 
-```js`
+```js
 const debug = require('broccoli-stew').debug;
 
 // Write tree to disk
 tree = debug(tree, 'my-tree');
-``
+```
 
 When running `yarn build`, you will now see a folder in the root of the project called `DEBUG` that contains a folder
 called `my-tree` with the contents of `tree` that whatever stage of the build it was added.
