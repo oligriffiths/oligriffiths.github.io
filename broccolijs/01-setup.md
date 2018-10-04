@@ -15,6 +15,7 @@ Create a new directory for this tutorial and install broccoli:
 ```sh
 mkdir broccoli-tutorial
 cd broccoli-tutorial
+yarn init -y
 yarn add --dev broccoli@beta broccoli-cli
 ```
 
@@ -106,7 +107,7 @@ To run a build, run `yarn build` (if you added the script) or `rm -rf dist && br
 You should see something like:
 
 ```sh
-$ yarn clean && broccoli build dist
+$ yarn build
 $ rm -rf dist
 ✨  Done in 1.05s.
 ```
@@ -124,7 +125,7 @@ Eat your greens!
 Now try running `yarn serve` or `broccoli serve` and you should see:
 
 ```sh
-$ broccoli serve
+$ yarn serve
 Serving on http://localhost:4200
 
 
