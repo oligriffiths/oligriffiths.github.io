@@ -28,6 +28,8 @@ html {
 }
 ```
 
+And update your Brocfile.js
+
 ```js
 // Brocfile.js
 const funnel = require("broccoli-funnel");
@@ -90,7 +92,7 @@ To enable source maps, add the following to the options hash that's the last par
 ```js
 // Brocfile.js
 // ...
-const css = new CompileSass(
+const css = compileSass(
   [appRoot],
   "styles/app.scss",
   "assets/app.css",

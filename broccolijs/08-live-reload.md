@@ -6,7 +6,7 @@ Well, obviously in dev we'd quite like to not have to hit refresh all the time, 
 well, we're lazy. So we can use a live reload server to do the job for us.
 
 ```sh
-yarn add --dev broccoli-livereload@^2.1.1
+yarn add --dev broccoli-livereload@^1.3.0
 ```
 
 ```js

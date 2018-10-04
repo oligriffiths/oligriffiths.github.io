@@ -8,7 +8,7 @@ to save on bytes shipped to the browser. Fewer bytes means less time transferrin
 to parse the file.
 
 ```sh
-yarn add --dev rollup-plugin-uglify@^3.0.0 broccoli-clean-css@^2.0.1
+yarn add --dev rollup-plugin-uglify@^6.0.0 broccoli-clean-css@^2.0.1
 ```
 
 This will install the Rollup Uglify plugin. It is also possible to use the `broccoli-uglify-sourcemap` Broccoli plugin,

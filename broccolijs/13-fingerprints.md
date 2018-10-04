@@ -134,6 +134,17 @@ auto-hash `js`, `css`, `png`, `jpg`, `gif` and `map` files, and will update `htm
 references to the original un-hashed file, with the new hashed file. There are additional options to specify a prefix
 so that files can be hosted on a CDN if you wish, see the plugin github page.
 
+Run `yarn build-prod` and checkout the `dist` directory:
+
+```
+└── assets/
+   ├── assets/app-4e1b4144662735eb546985bf69c03889.js
+   └── assets/app-75fd3e0f1a1ab573158459ad50aa232f.css
+└── images/
+   ├── images/broccoli-logo-4b34a6c5a21fbbd16639b21ec2e78902.png
+└── index.html
+```
+
 Completed Branch: [13-fingerprints](https://github.com/oligriffiths/broccolijs-tutorial/tree/13-fingerprints)
 
 Next: [14-complete](14-complete.html)

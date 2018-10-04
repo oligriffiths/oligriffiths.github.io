@@ -11,16 +11,12 @@ Introducing, [broccoli-merge-trees](https://github.com/broccolijs/broccoli-merge
 yarn add --dev broccoli-merge-trees@^3.0.0
 ```
 
-Now let's add a `public` directory so we can ship unprocessed assets like images:
+Now let's add a some directories and content so we can ship unprocessed assets like images, css and js:
 
 ```sh
 mkdir -p public/images
-```
-
-Now let's add a JS and a CSS file that'll be the root of our web app and copy that into an `assets` folder.
-
-```sh
 mkdir -p app/styles
+touch app/styles/app.css app/app.js
 ```
 
 In `app/styles/app.css` put:
