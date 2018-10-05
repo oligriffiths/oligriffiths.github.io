@@ -11,7 +11,7 @@ ES5 syntax javascript that is runnable in the browser. For this, we will require
 [broccoli-babel-transpiler](https://github.com/babel/broccoli-babel-transpiler).
  
 ```sh
-yarn add --dev @babel/core@^7.1.0 broccoli-babel-transpiler@^7.0.0 @babel/preset-env@^7.1.0 @babel/plugin-external-helpers@^7.0.0
+yarn add --dev @babel/core@^7.1.0 broccoli-babel-transpiler@^7.0.0 @babel/preset-env@^7.1.0
 ```
 
 Now open `app/app.js` and set the contents to:
@@ -90,9 +90,6 @@ Make a `.babelrc` file in the root directory:
         }
       }
     ]
-  ],
-  "plugins": [
-    "@babel/plugin-external-helpers"
   ]
 }
 ```

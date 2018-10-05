@@ -57,7 +57,7 @@ So, first off, install rollup (and remove babel dependencies, provided by rollup
 
 ```sh
 yarn add --dev rollup@^0.66.2 broccoli-rollup@^2.1.1 rollup-plugin-babel@^4.0.3
-yarn remove broccoli-babel-transpiler @babel/preset-env @babel/plugin-external-helpers
+yarn remove broccoli-babel-transpiler @babel/preset-env
 ```
 
 Note: we're removing `broccoli-babel-transpiler` `@babel/preset-env` and `@babel/plugin-external-helpers` as these are
