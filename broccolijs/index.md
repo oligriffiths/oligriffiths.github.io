@@ -4,7 +4,7 @@ date: 2018-04-27
 
 Welcome to the world of Broccoli.js. So, I'm sure you're wondering, what *is* Broccoli.js?
 
-Well, per the [Broccoli.js website](http://broccolijs.com)
+Well, per the [Broccoli.js website](http://broccoli.build)
 
 > The asset pipeline for ambitious applications
 
