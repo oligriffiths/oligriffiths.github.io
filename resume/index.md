@@ -40,25 +40,25 @@ I'm passionate about new technologies, if there is a new, better way of solving 
 
 ### Tumblr
 
-Senior Software Engineer: April 2015 - Present : [tumblr.com](http://www.tumblr.com)
+Principal Software Engineer: 2018 - Present
+[tumblr.com](http://www.tumblr.com)
 
-Working on the core PHP team, I am involved in core architecture design and fulfilment, along with product support services. Building, refactoring and architecting new solutions for the Tumblr platform.
+As a Principal software engineer I am responsible for the smooth implementation and delivery of large scale, cross platform and discipline solutions.
+Most notably I was the lead on GDPR compliance ensuring that Tumblr meets its legal responsibilities complying with new EU legislation, I was instrumental in a user safety project, and lead a team to implement a new media registry to power all media on Tumblr.  
 
 ---
 
-### CrowdCanDo
+Principal Software Engineer: 2018 - Present
+[tumblr.com](http://www.tumblr.com)
 
-CTO : Aug 2013 - Aug 2015 : [crowdcan.do](http://www.crowdcan.do)
-
-CrowdCanDo approached me in August 2013 to join their team with the request to architecture and build their crowdfunded events platform. 
-
-We prototyped the basics of the system in an afternoon, and have iterated from there, adding Stripe Payments, tickets, etc.
+Working on the core PHP team, I was involved in core architecture design and fulfilment, along with product support services. Building, refactoring and architecting new solutions for the Tumblr platform.
 
 ---
 
 ### Expand The Room LLC
 
-Head of Mobile : Feb 2013 - Feb 2015 : [expandtheroom.com](http://www.expandtheroom.com)
+Head of Mobile : Feb 2013 - Feb 2015
+[expandtheroom.com](http://www.expandtheroom.com)
 
 I joined ETR and moved to New York City in February 2013 to join their engineering team to architect and build projects for an array of high profile clients. 
 
@@ -70,7 +70,8 @@ In charge of architecture, design, overseeing and developing iOS apps for the co
 
 ### The Organic Agency
 
-Lead Engineer : Feb 2007 - Feb 2013 : [theorganicagency.com](http://www.theorganicagency.com)
+Lead Engineer : Feb 2007 - Feb 2013
+[theorganicagency.com](http://www.theorganicagency.com)
 
 After leaving University in 2006, I was introduced to 2 guys who had formed a new startup and were looking for a web developer. 
 

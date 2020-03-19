@@ -22,4 +22,6 @@ My name is Oli Griffiths, I'm from the U.K. and I started tinkering with compute
 
 I graduated Exeter University (U.K.) in Internet Engineering BSc in 2006, and formed and grew a startup [The Organic Agency](http://www.theorganicagency.com) in the digital marketing space. I was in-charge of tech, and the companies software offerings and development team, building and supporting a wide array of projects and clients from the NHS to Adobe & Microsoft. My primary area of expertise was full stack PHP and full stack frontend (JS/CSS/HTML).
 
-Since then, I left Organic in 2013 to join [Expand The Room](http://www.expandtheroom.com), a digital createive agency based in New York. Seeking new challenges and larger clients, my role at ETR has grown to now be heading up mobile, both native and web at the company. 
+In 2013 I left Organic Development to join [Expand The Room](http://www.expandtheroom.com), a digital createive agency based in New York. Seeking new challenges and larger clients, my role at ETR has grown to now be heading up mobile, both native and web at the company. 
+
+After Expand The Room I left to Join [Tumblr](https://www.tumblr.com) as a Senior backend software engineer working to deliver performance improvements and backend framework architecture.
