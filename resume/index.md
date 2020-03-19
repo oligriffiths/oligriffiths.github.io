@@ -39,26 +39,25 @@ I'm passionate about new technologies, if there is a new, better way of solving 
 ## Professional Experience
 
 ### Tumblr
+[tumblr.com](http://www.tumblr.com)
 
 Principal Software Engineer: 2018 - Present
-[tumblr.com](http://www.tumblr.com)
 
 As a Principal software engineer I am responsible for the smooth implementation and delivery of large scale, cross platform and discipline solutions.
 Most notably I was the lead on GDPR compliance ensuring that Tumblr meets its legal responsibilities complying with new EU legislation, I was instrumental in a user safety project, and lead a team to implement a new media registry to power all media on Tumblr.  
 
 ---
 
-Principal Software Engineer: 2018 - Present
-[tumblr.com](http://www.tumblr.com)
+Senior Software Engineer: 2015 - 2018
 
 Working on the core PHP team, I was involved in core architecture design and fulfilment, along with product support services. Building, refactoring and architecting new solutions for the Tumblr platform.
 
 ---
 
 ### Expand The Room LLC
+[expandtheroom.com](http://www.expandtheroom.com)
 
 Head of Mobile : Feb 2013 - Feb 2015
-[expandtheroom.com](http://www.expandtheroom.com)
 
 I joined ETR and moved to New York City in February 2013 to join their engineering team to architect and build projects for an array of high profile clients. 
 
@@ -69,9 +68,9 @@ In charge of architecture, design, overseeing and developing iOS apps for the co
 ---
 
 ### The Organic Agency
+[theorganicagency.com](http://www.theorganicagency.com)
 
 Lead Engineer : Feb 2007 - Feb 2013
-[theorganicagency.com](http://www.theorganicagency.com)
 
 After leaving University in 2006, I was introduced to 2 guys who had formed a new startup and were looking for a web developer. 
 
@@ -81,22 +80,27 @@ We handled projects for a wide variety of clients from the National health Servi
 
 ---
 
-## RECENT PROJECTS
+## PROJECTS
+
+### Media Registry
+
+At Tumblr, I designed and implemented a new media registry application that provides a centralised database for all media (images, video, audio) that is hosted by the platform.
+The intention of this project was to reduce the amount of duplicate data being stored by having a single instance of any media item, and to provide additional metadata about media to allow Trust & Safety to better protect Tumblr's users.
+
+### GDPR
+
+At Tumblr I designed and implemented the majority of the GDPR compliance software. This involved building user dashbaords to download their personal data, along with data aggregation pipelines to pull all of the data connected to a user from both online (mysql, memcached, redis) and offline (hive, hadoop) data stores.
+Through this system, Tumblr met its obligations under Verizon Media to deliver compliance before the required legal cutoff in 2018.
 
 ### MTV EMAs (European Music Awards)
 [App Store](https://itunes.apple.com/us/app/mtv-ema/id387064481?mt=8)
 
 The MTV EMAs is MTV's flagship award show in Europe. I architected and built the latest version (6) of the app, for iPhone and iPad, enhancing the performance, usability and stability compared to last years app. Featuring offline mode, live streaming, innovative voting flow, iOS 8 actionable notifications, ability to re-cast all votes (my votes), artist bios and show information. 9 weeks build time from first commit to deployed in the app store.
 
-### CrowdCanDo
-[crowdcan.do](http://www.crowdcan.do)
+### KodeKit
+[github.com/timble/kodekit](https://github.com/timble/kodekit)
 
-A crowdfunding events platform built on the Nooku framework. Aiming to solve some of the risks associated with event planning, CCD hopes to bring croudfunding to the events industry.
-
-### Nooku Platform
-[nooku.org](http://www.nooku.org)
-
-Nooku is a rapid application development platform that I've been involved with for a few years now. I've have been writing documentation, involved in architecture discussions and building custom components both commercially and for the community.
+KodeKit is a rapid application development platform that I've been involved with for a few years now. I've have been writing documentation, involved in architecture discussions and building custom components both commercially and for the community.
 
 ### AIG Cyberedge
 [App store](https://itunes.apple.com/us/app/aig-cyberedge/id596089398?mt=8)
@@ -112,19 +116,10 @@ Cross platform mobile and tablet javascript application. I designed built out th
 
 A dashboard and analytics system for presenting digital audio watermarking information about commercials aired over the ESPN affiliate network. I built the server side infrastructure and the frontend web for processing the data from various systems and presenting it in a meaningful and understandable interface.
 
----
-
-## PREVIOUS PROJECTS
-
 ### Renshaw Baking
 [renshawbaking.com](http://www.renshawbaking.com)
 
 A custom e-commerce platform built using Joomla and Nooku Framework. I architected and built the bespoke platform with my team from Organic Development.
-
-### Mission Penguin
-[missionpenguin.net](http://www.missionpenguin.net)
-
-My first official iPhone app/game, built for a penguin zoo in south west England, the game features 15 levels, side scrolling platform style, real physics and a boat load of sprites. I used LevelHelper and SpriteHelper to build the levels and Cocos2D with Chipmunk for the game engine.
 
 ### ITRI
 [itri.co.uk](http://www.itri.co.uk)
