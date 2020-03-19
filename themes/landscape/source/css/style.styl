@@ -96,3 +96,44 @@ if sidebar is left
 
 if sidebar
   @import "_partial/sidebar"
+
+@page { margin: 2cm 1cm }
+
+@media print {
+  body {
+    font-size: 14px;
+  }
+
+  .page-break {page-break-before: always;}
+
+  #header-nav,
+  #sidebar,
+  #footer,
+  .article-meta,
+  .article-footer {
+    display: none !important;
+  }
+
+  #container {
+    padding: 0 !important;
+  }
+
+  #content {
+    margin-bottom: 0 !important;
+    top: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .outer,
+  .article,
+  #main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .article-inner {
+    box-shadow: none;
+    border: none;
+  }
+}
