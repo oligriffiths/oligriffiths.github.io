@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>11-Environment | Oli Griffiths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Environment configuration allows us to include or not include certain things in the build given certain configuration options. For example, we probably want to not include live reload for production b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="11-Environment">
+<meta property="og:url" content="http://www.oligriffiths.com/broccolijs/11-environment.html">
+<meta property="og:site_name" content="Oli Griffiths">
+<meta property="og:description" content="Environment configuration allows us to include or not include certain things in the build given certain configuration options. For example, we probably want to not include live reload for production b">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-19T14:47:01.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11-Environment">
+<meta name="twitter:description" content="Environment configuration allows us to include or not include certain things in the build given certain configuration options. For example, we probably want to not include live reload for production b">
+  
+    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54750852-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body class="not-home">
+  <div id="container">
+    <div id="header-nav" class="">
+    <div class="outer">
+        <nav id="main-nav">
+            <a id="main-nav-toggle" class="nav-icon"></a>
+            
+            <a class="main-nav-link" href="/">Home</a>
+            
+            <a class="main-nav-link" href="/archives">Archives</a>
+            
+            <a class="main-nav-link" href="/about">About</a>
+            
+        </nav>
+        <nav id="sub-nav">
+            
+            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+            
+            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        </nav>
+        <div id="search-form-wrap">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
+        </div>
+    </div>
+</div>
+
+
+    <div id="wrap">
+        
+        <div id="content">
+          <div class="outer">
+            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/broccolijs/11-environment.html" class="article-date">
+  <time datetime="2018-04-27T04:00:00.000Z" itemprop="datePublished">Apr 27 2018</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      11-Environment
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Environment configuration allows us to include or not include certain things in the build given certain
+configuration options. For example, we probably want to not include live reload for production builds,
+for this we need to have different environments. When building, we can provide an environment flag option.
+So lets go ahead and configure things to support this.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev broccoli-env@^0.0.1</span><br></pre></td></tr></table></figure>
+<p>Note, the <code>broccoli-stew</code> package also comes with an <code>env</code> utility, with a slightly different API, but it doesn&#39;t expose
+the environment name, and I want to be able to print it to the console, so I&#39;m using the <code>broccoli-env</code> package instead.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Brocfile.js</span></span><br><span class="line"><span class="keyword">const</span> funnel = <span class="built_in">require</span>(<span class="string">'broccoli-funnel'</span>);</span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'broccoli-merge-trees'</span>);</span><br><span class="line"><span class="keyword">const</span> compileSass = <span class="built_in">require</span>(<span class="string">'broccoli-sass-source-maps'</span>)(<span class="built_in">require</span>(<span class="string">'sass'</span>));</span><br><span class="line"><span class="keyword">const</span> esLint = <span class="built_in">require</span>(<span class="string">"broccoli-lint-eslint"</span>);</span><br><span class="line"><span class="keyword">const</span> sassLint = <span class="built_in">require</span>(<span class="string">"broccoli-sass-lint"</span>);</span><br><span class="line"><span class="keyword">const</span> Rollup = <span class="built_in">require</span>(<span class="string">"broccoli-rollup"</span>);</span><br><span class="line"><span class="keyword">const</span> LiveReload = <span class="built_in">require</span>(<span class="string">'broccoli-livereload'</span>);</span><br><span class="line"><span class="keyword">const</span> log = <span class="built_in">require</span>(<span class="string">'broccoli-stew'</span>).log;</span><br><span class="line"><span class="keyword">const</span> babel = <span class="built_in">require</span>(<span class="string">"rollup-plugin-babel"</span>);</span><br><span class="line"><span class="keyword">const</span> nodeResolve = <span class="built_in">require</span>(<span class="string">'rollup-plugin-node-resolve'</span>);</span><br><span class="line"><span class="keyword">const</span> commonjs = <span class="built_in">require</span>(<span class="string">'rollup-plugin-commonjs'</span>);</span><br><span class="line"><span class="keyword">const</span> env = <span class="built_in">require</span>(<span class="string">'broccoli-env'</span>).getEnv() || <span class="string">'development'</span>;</span><br><span class="line"><span class="keyword">const</span> isProduction = env === <span class="string">'production'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Status</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Environment: '</span> + env);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> appRoot = <span class="string">"app"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Copy HTML file from app root to destination</span></span><br><span class="line"><span class="keyword">const</span> html = funnel(appRoot, &#123;</span><br><span class="line">  files: [<span class="string">"index.html"</span>],</span><br><span class="line">  annotation: <span class="string">"Index file"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Lint js files</span></span><br><span class="line"><span class="keyword">let</span> js = esLint(appRoot, &#123;</span><br><span class="line">  persist: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Compile JS through rollup</span></span><br><span class="line">js = <span class="keyword">new</span> Rollup(js, &#123;</span><br><span class="line">  inputFiles: [<span class="string">"**/*.js"</span>],</span><br><span class="line">  annotation: <span class="string">"JS Transformation"</span>,</span><br><span class="line">  rollup: &#123;</span><br><span class="line">    input: <span class="string">"app.js"</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">      file: <span class="string">"assets/app.js"</span>,</span><br><span class="line">      format: <span class="string">"iife"</span>,</span><br><span class="line">      sourcemap: !isProduction,</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      nodeResolve(&#123;</span><br><span class="line">        jsnext: <span class="literal">true</span>,</span><br><span class="line">        browser: <span class="literal">true</span>,</span><br><span class="line">      &#125;),</span><br><span class="line">      commonjs(&#123;</span><br><span class="line">        include: <span class="string">'node_modules/**'</span>,</span><br><span class="line">      &#125;),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">"node_modules/**"</span>,</span><br><span class="line">      &#125;),</span><br><span class="line">    ],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Lint css files</span></span><br><span class="line"><span class="keyword">let</span> css = sassLint(appRoot + <span class="string">'/styles'</span>, &#123;</span><br><span class="line">  disableTestGenerator: <span class="literal">true</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Copy CSS file into assets</span></span><br><span class="line">css = compileSass(</span><br><span class="line">  [appRoot],</span><br><span class="line">  <span class="string">'styles/app.scss'</span>,</span><br><span class="line">  <span class="string">'assets/app.css'</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    sourceMap: !isProduction,</span><br><span class="line">    sourceMapContents: <span class="literal">true</span>,</span><br><span class="line">    annotation: <span class="string">"Sass files"</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Copy public files into destination</span></span><br><span class="line"><span class="keyword">const</span> public = funnel(<span class="string">'public'</span>, &#123;</span><br><span class="line">  annotation: <span class="string">"Public files"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Remove the existing module.exports and replace with:</span></span><br><span class="line"><span class="keyword">let</span> tree = merge([html, js, css, public], &#123;<span class="attr">annotation</span>: <span class="string">"Final output"</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Include live reaload server</span></span><br><span class="line"><span class="keyword">if</span> (!isProduction) &#123;</span><br><span class="line">  <span class="comment">// Log the output tree</span></span><br><span class="line">  tree = log(tree, &#123;</span><br><span class="line">    output: <span class="string">'tree'</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  tree = <span class="keyword">new</span> LiveReload(tree, &#123;</span><br><span class="line">    target: <span class="string">'index.html'</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = tree;</span><br></pre></td></tr></table></figure>
+<p>What we&#39;ve done here is wrapped the <code>debug</code> and <code>LiveReload</code> section in an <code>env === &quot;development&quot;</code>, this ensures the
+<code>debug</code> and <code>LiveReload</code> trees are not included in the build when making a production build.</p>
+<p>In order to pass in a different environment, simply add <code>BROCCOLI_ENV=production</code> before the build command, e.g.
+<code>BROCCOLI_ENV=production broccoli build dist</code>. To make this simpler, lets add a new run command in <code>package.json</code>:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"node $NODE_DEBUG_OPTION $(which broccoli) build --overwrite"</span>,</span><br><span class="line">    <span class="attr">"serve"</span>: <span class="string">"node $NODE_DEBUG_OPTION $(which broccoli) serve"</span>,</span><br><span class="line">    <span class="attr">"build-prod"</span>: <span class="string">"BROCCOLI_ENV=production node $NODE_DEBUG_OPTION $(which broccoli) build --overwrite"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now, running <code>yarn build-prod</code> will build in &quot;production&quot; mode.</p>
+<p>Completed Branch: <a href="https://github.com/oligriffiths/broccolijs-tutorial/tree/11-environment" target="_blank" rel="noopener">11-environment</a></p>
+<p>Next: <a href="12-minify.html">12-minify</a></p>
+
+      
+    </div>
+    
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/broccolijs/11-environment.md">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    
+    <footer class="article-footer">
+      <a data-url="http://www.oligriffiths.com/broccolijs/11-environment.html" data-id="ck7yvbtij000qyn57kh5i5z0i" class="article-share-link">Share</a>
+      
+        <a href="http://www.oligriffiths.com/broccolijs/11-environment.html#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+    var disqus_shortname = 'oligriffiths';
+    
+    var disqus_url = 'http://www.oligriffiths.com/broccolijs/11-environment.html';
+    
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//go.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+</section>
+            
+              <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+            
+          </div>
+        </div>
+        <div id="footer_spacer"></div>
+<footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+  </div>
+</body>
+</html>

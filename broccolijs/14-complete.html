@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>14-Fingerprinting | Oli Griffiths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Congratulations, you&amp;#39;ve just built your first Broccoli pipeline.   If you enjoyed this tutorial, please follow me on twitter @oligriffiths Watch this space for further updates to this series, incl">
+<meta property="og:type" content="website">
+<meta property="og:title" content="14-Fingerprinting">
+<meta property="og:url" content="http://www.oligriffiths.com/broccolijs/14-complete.html">
+<meta property="og:site_name" content="Oli Griffiths">
+<meta property="og:description" content="Congratulations, you&amp;#39;ve just built your first Broccoli pipeline.   If you enjoyed this tutorial, please follow me on twitter @oligriffiths Watch this space for further updates to this series, incl">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn.drawception.com/images/panels/2017/7-1/8nMySD2xOC-8.png">
+<meta property="og:image" content="https://rlv.zcache.com/happy_green_broccoli_party_time_paper_cup-rc62cedc39e944418bb5839bd2a50152b_6xt6u_540.jpg?rlvnet=1">
+<meta property="og:image" content="https://i.pinimg.com/736x/73/3a/2c/733a2c06724e57a9b96239c6fd9a4c2f--party-tables-party-trays.jpg">
+<meta property="og:image" content="https://i.pinimg.com/originals/9f/c0/41/9fc041b5f6d5098ecaf01aab7e49f118.jpg">
+<meta property="og:image" content="https://cdn.drawception.com/images/panels/2017/7-1/8nMySD2xOC-6.png">
+<meta property="og:image" content="https://static.boredpanda.com/blog/wp-content/uploads/2011/09/pod0039-broccoli-house.jpg">
+<meta property="og:image" content="http://static1.squarespace.com/static/546a5b63e4b02520b1065879/596f3ecce3df289cfa5b175e/57dae900ebbd1a233e1b42eb/1500465145030/broccoli+%28457x640%29.jpg?format=1000w">
+<meta property="og:updated_time" content="2020-03-19T14:47:01.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14-Fingerprinting">
+<meta name="twitter:description" content="Congratulations, you&amp;#39;ve just built your first Broccoli pipeline.   If you enjoyed this tutorial, please follow me on twitter @oligriffiths Watch this space for further updates to this series, incl">
+<meta name="twitter:image" content="https://cdn.drawception.com/images/panels/2017/7-1/8nMySD2xOC-8.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54750852-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body class="not-home">
+  <div id="container">
+    <div id="header-nav" class="">
+    <div class="outer">
+        <nav id="main-nav">
+            <a id="main-nav-toggle" class="nav-icon"></a>
+            
+            <a class="main-nav-link" href="/">Home</a>
+            
+            <a class="main-nav-link" href="/archives">Archives</a>
+            
+            <a class="main-nav-link" href="/about">About</a>
+            
+        </nav>
+        <nav id="sub-nav">
+            
+            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+            
+            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        </nav>
+        <div id="search-form-wrap">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
+        </div>
+    </div>
+</div>
+
+
+    <div id="wrap">
+        
+        <div id="content">
+          <div class="outer">
+            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/broccolijs/14-complete.html" class="article-date">
+  <time datetime="2018-04-27T04:00:00.000Z" itemprop="datePublished">Apr 27 2018</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      14-Fingerprinting
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Congratulations, you&#39;ve just built your first Broccoli pipeline. </p>
+<p><img src="https://cdn.drawception.com/images/panels/2017/7-1/8nMySD2xOC-8.png" alt=""></p>
+<p>If you enjoyed this tutorial, please follow me on twitter <a href="http://twitter.com/oligriffiths" target="_blank" rel="noopener">@oligriffiths</a></p>
+<p>Watch this space for further updates to this series, including a <a href="https://reactjs.org/" target="_blank" rel="noopener">React</a> application and a
+<a href="https://glimmerjs.com/" target="_blank" rel="noopener">Glimmer.js</a> application.</p>
+<p>Here&#39;s some more weird pictures of broccoli:</p>
+<p><img src="https://rlv.zcache.com/happy_green_broccoli_party_time_paper_cup-rc62cedc39e944418bb5839bd2a50152b_6xt6u_540.jpg?rlvnet=1" alt=""></p>
+<p><img src="https://i.pinimg.com/736x/73/3a/2c/733a2c06724e57a9b96239c6fd9a4c2f--party-tables-party-trays.jpg" alt=""></p>
+<p><img src="https://i.pinimg.com/originals/9f/c0/41/9fc041b5f6d5098ecaf01aab7e49f118.jpg" alt=""></p>
+<p><img src="https://cdn.drawception.com/images/panels/2017/7-1/8nMySD2xOC-6.png" alt=""></p>
+<p><img src="https://static.boredpanda.com/blog/wp-content/uploads/2011/09/pod0039-broccoli-house.jpg" alt=""></p>
+<p><img src="http://static1.squarespace.com/static/546a5b63e4b02520b1065879/596f3ecce3df289cfa5b175e/57dae900ebbd1a233e1b42eb/1500465145030/broccoli+%28457x640%29.jpg?format=1000w" alt=""></p>
+<p>Thanks for reading!</p>
+
+      
+    </div>
+    
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/broccolijs/14-complete.md">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    
+    <footer class="article-footer">
+      <a data-url="http://www.oligriffiths.com/broccolijs/14-complete.html" data-id="ck7yvbtil000wyn572dszm2gk" class="article-share-link">Share</a>
+      
+        <a href="http://www.oligriffiths.com/broccolijs/14-complete.html#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+    var disqus_shortname = 'oligriffiths';
+    
+    var disqus_url = 'http://www.oligriffiths.com/broccolijs/14-complete.html';
+    
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//go.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+</section>
+            
+              <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+            
+          </div>
+        </div>
+        <div id="footer_spacer"></div>
+<footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Remove HTTP from your web apps | Oli Griffiths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="So you&amp;#39;re a web developer eh? You make websites and web apps? Well riddle me this, what makes you different from a C++ developer, a command line interface (CLI) app developer, or a mobile develope">
+<meta name="keywords" content="HTTP,PHP,Terminal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Remove HTTP from your web apps">
+<meta property="og:url" content="http://www.oligriffiths.com/2014/11/25/removing-http-from-web-apps/index.html">
+<meta property="og:site_name" content="Oli Griffiths">
+<meta property="og:description" content="So you&amp;#39;re a web developer eh? You make websites and web apps? Well riddle me this, what makes you different from a C++ developer, a command line interface (CLI) app developer, or a mobile develope">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-19T14:47:01.212Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Remove HTTP from your web apps">
+<meta name="twitter:description" content="So you&amp;#39;re a web developer eh? You make websites and web apps? Well riddle me this, what makes you different from a C++ developer, a command line interface (CLI) app developer, or a mobile develope">
+  
+    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54750852-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body class="not-home">
+  <div id="container">
+    <div id="header-nav" class="">
+    <div class="outer">
+        <nav id="main-nav">
+            <a id="main-nav-toggle" class="nav-icon"></a>
+            
+            <a class="main-nav-link" href="/">Home</a>
+            
+            <a class="main-nav-link" href="/archives">Archives</a>
+            
+            <a class="main-nav-link" href="/about">About</a>
+            
+        </nav>
+        <nav id="sub-nav">
+            
+            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+            
+            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        </nav>
+        <div id="search-form-wrap">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
+        </div>
+    </div>
+</div>
+
+
+    <div id="wrap">
+        
+        <div id="content">
+          <div class="outer">
+            <section id="main"><article id="post-removing-http-from-web-apps" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/25/removing-http-from-web-apps/" class="article-date">
+  <time datetime="2014-11-25T16:40:00.000Z" itemprop="datePublished">Nov 25 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Remove HTTP from your web apps
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>So you&#39;re a web developer eh? You make websites and web apps? Well riddle me this, what makes you different from a C++ developer, a command line interface (CLI) app developer, or a mobile developer? The Hyper Text Transfer Protocol (HTTP) right? HTTP is this holy grail of what the modern tech world is built upon, without HTTP there would be no websites, no APIs, no Twitter/Facebook/Instagram!</p>
+<p>So Tim Berners Lee, we salute you, but I feel we kind of got lost along the way with how we perceive software development for the web. </p>
+<a id="more"></a>
+<p>HTTP and the slew of architectures that are built on top of it have enabled a whole new generation of software that 20 years ago would not have been imagined. The problem is, in my experience, that the majority of web developers don&#39;t know or understand really what HTTP is and how it affects their application.</p>
+<p>Removing HTTP from your web app, sounds dumb, your app is built on top of HTTP, why would you want to remove it from the equation? Well, I&#39;m not talking about removing HTTP from your app entirely, but part of it. Whilst this blog post is aimed more at server side apps, it&#39;s not limited to server side only. So why would you want to remove it from your app?</p>
+<p>##What is HTTP?</p>
+<p>In order to remove HTTP from your app, you must first understand what exactly HTTP is and how it works. So what IS HTTP anyway and how does it affect web apps? HTTP is a protocol used to allow two computers to communicate with each other in a standardised format. The process is pretty simple; open a socket connection to the host server, send a message in HTTP format, wait for a response, close the connection. The format of the messages sent between the two computers is pretty simple, using key-value pairs, separated by a new line. That is it, that&#39;s all an HTTP message is, text. The problem is that we&#39;ve let this communication format leak into our web apps without really understanding the consequences. How many times have you set a cookie or an HTTP header from within your app code? I know I&#39;ve done it!</p>
+<p>HTTP is incredibly simple, you can even perform the simplest of HTTP requests right from your terminal using telnet, give it a try:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">telnet example.com 80</span><br><span class="line"></span><br><span class="line">Trying 93.184.216.119...</span><br><span class="line">Connected to example.com.</span><br><span class="line">Escape character is &apos;^]&apos;.</span><br></pre></td></tr></table></figure>
+<p>at this point you can type messages to be sent to the server, so type the below:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">host: example.com</span><br></pre></td></tr></table></figure>
+<p>The first line defines the request format <code>GET</code>, the path to the resource <code>/</code> and the HTTP version <code>1.1</code>. This first line is the minimum you need. The <code>host</code> header is not always reqired, only for hosts using virtual servers (which is the majority), and is required for <code>example.com</code>.</p>
+<p>After <code>host</code> hit enter twice, this empty new line tells the server that the request is complete.</p>
+<p>You should now be presented with the response from the server, the headers and response body (html) for example.com.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Cache-Control: max-age=604800</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Date: Tue, 25 Nov 2014 16:13:41 GMT</span><br><span class="line">Etag: &quot;359670651&quot;</span><br><span class="line">Expires: Tue, 02 Dec 2014 16:13:41 GMT</span><br><span class="line">Last-Modified: Fri, 09 Aug 2013 23:54:35 GMT</span><br><span class="line">Server: ECS (ewr/1584)</span><br><span class="line">X-Cache: HIT</span><br><span class="line">x-ec-custom-error: 1 </span><br><span class="line">Content-Length: 1270</span><br><span class="line"></span><br><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>The format is really very simple, in the same way as you can send headers (meta data) in the request as key-value pairs, the response also contains headers that inform the client about the response. For more information on standard HTTP headers, see <a href="http://en.wikipedia.org/wiki/List_of_HTTP_header_fields" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/List_of_HTTP_header_fields</a>. Following the headers is a blank new line that signifies the separation between the headers and the body.</p>
+<p>Think about it this way, what differentiates a web app from a desktop app? The way that one interfaces with the software and how those messages are transferred from user input, to the software and back as some kind of output. With a desktop app, that communication happens within the framework that you&#39;re using, events are captured (key down, clicking a button, etc), and handled by the runtime UI framework. Those messages are then passed down to your app, which will typically cause some change in state, and the UI is then updated to reflect that. A CLI app&#39;s interface is STDIN and STDOUT. A web app&#39;s interface IS HTTP. It&#39;s easy to confuse the communication interface for a web app with the user interface, HTML, however this is not the case. </p>
+<p>###HTML != HTTP</p>
+<p>HTML is merely a presentation format, it has nothing to do with HTTP directly. Browsers conform to a standard for how to interact with that HTML and how it interacts with HTTP. For example, what happens when you click a hyperlink, submit a form or how to process an <img> tag, but HTML itself is independent from HTTP. HTML, CSS and JS form a user interface framework for displaying the state of your app to a user, this is all. </p>
+<p>##HTTP Request</p>
+<p>Anyway, I digress. First things first, we request something from the server, a resource. There are typically 2 ways to request a resource, either through a resource path e.g. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/posts/1</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">or the less preferred query string, e.g.</span><br></pre></td></tr></table></figure>
+<p>/posts.php?id=1
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(the query string approach used to be very common on websites, but has since been replaced with the resource path as the preferred method of routing which is inline with the URI specification). I will be focusing on the resource path approach.</span><br><span class="line"></span><br><span class="line">Most implementations of routing via a resource path will use some form of request rewriting within the web server software, and internally re-route the request to a single entry file for the web application, this then kicks off bootstrapping the application. </span><br><span class="line"></span><br><span class="line">At this point we can separate what you see **(HTML)**, from how you see it **(HTTP)**. That covers the communication from a users browser, to your server and through your HTTP server (Apache, NginX, IIS, etc) and into your app. We can&apos;t remove HTTP from the equation quite yet, unless you&apos;re merely serving a static asset (HTML page, JS, CSS, image, etc). The next thing we need HTTP for is how to route to the specific resource within your app that the user is requesting.</span><br><span class="line"></span><br><span class="line">###Routing</span><br><span class="line"></span><br><span class="line">Any dynamic application needs to perform routing, that is, taking information from the request and working out where to route that request internally, which controller to instantiate and what method to invoke on that controller (this is the most common pattern, there are other ways to deal with a routed request too). Now, how an application will handle routing is entirely up to the application and out of scope for this blog post, but we can make the assumption that the app needs to know what the user is requesting, and this information needs to be made available to certain parts of the app. </span><br><span class="line"></span><br><span class="line">Assuming we&apos;re using the resource path method of routing, the resource being requested is part of the first line of the HTTP request. The first line contains the request format (GET/POST/PUT/DELETE), the path and the HTTP version (1.1 usually). </span><br><span class="line"></span><br><span class="line">e.g.</span><br></pre></td></tr></table></figure></p>
+<p>GET /posts/1 HTTP/1.1
+<code>`</code></p>
+<p>Most web server software will make this value available to you through some kind of global variable, in the case of PHP that would be <code>$_SERVER[&#39;REQUEST_URI&#39;]</code>. </p>
+<p>There are additional pieces of information that are contained within the request that are pertinent to how a request is handled. These include, but are not limited to:</p>
+<ul>
+<li>query params</li>
+<li>data (POST/PUT data)</li>
+<li>cookies</li>
+<li>authorization info</li>
+<li>request content type</li>
+<li>response content type</li>
+<li>last modified date</li>
+</ul>
+<p>All of this information can be encapsulised within a request object. Such an object should be abstracted in such a way that it can be decoupled from HTTP itself. So let&#39;s have a go at what that might look like:</p>
+<ul>
+<li>attributes - identify the request target</li>
+<li>parameters - request params (query string)</li>
+<li>data - POST/PUT data</li>
+<li>persistent data - cookies</li>
+<li>authorisation - authorisation header data extracted into a unified format</li>
+<li>request type - request content type</li>
+<li>response type - response content type</li>
+<li>meta - any other meta info, e.g. HTTP headers</li>
+</ul>
+<p>As you can see, the above can be applied very easily to an HTTP request, but also be applied to any other kind of request, CLI/Socket/internal. An interesting thing to note is that this format can be used internally within your app to represent a &quot;request&quot; as it is now decoupled from HTTP, which makes HMVC much easier. </p>
+<p>##HTTP Response</p>
+<p>Now that we&#39;ve abstracted a request, we should be able to do the same with the response:</p>
+<ul>
+<li>data - your HTML/JSON/XML</li>
+<li>persistent data - cookies</li>
+<li>content type - response type</li>
+<li>last modified - date the resource was last modified, used for caching</li>
+<li>meta - additional meta info, e.g. headers. </li>
+</ul>
+<p>What the above effectively means, is that you can abstract out the request/response from HTTP, and then effectively &quot;bolt-on&quot; an HTTP dispatching layer in front of your app. This allows the internals of your app to be independent from the delivery mechanism (HTTP) itself, and you merely have a layer that transforms the input and output into an HTTP friendly format. The same can then be applied to other interfaces like CLI for example, without requiring any app code changes. </p>
+<p>##Benefits</p>
+<p>Some of the benefits of this approach are:</p>
+<ul>
+<li><strong>testability</strong>: your code becomes much easier to test as it does not depend on an HTTP related functionality.</li>
+<li><strong>portability</strong>: your code can be ported between applications and used in different contexts, HTTP, service based, CLI, etc. </li>
+<li><strong>componentisation</strong>: it allows you to componentise your application, by having an internal request be identical to an HTTP request. </li>
+<li><strong>HMVC</strong>: becomes significantly easier to achieve as your &quot;components&quot; can now be invoked internally, allowing you to separate concerns between components, and &quot;compose&quot; functionality. </li>
+</ul>
+<p>Everything I&#39;ve talked about here is just one step in making good code, the better the separation of concerns, the better your code.</p>
+
+      
+    </div>
+    
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/_posts/removing-http-from-web-apps.md">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    
+    <footer class="article-footer">
+      <a data-url="http://www.oligriffiths.com/2014/11/25/removing-http-from-web-apps/" data-id="ck7yvbtie000hyn57fjtxak6t" class="article-share-link">Share</a>
+      
+        <a href="http://www.oligriffiths.com/2014/11/25/removing-http-from-web-apps/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Terminal/">Terminal</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/06/HMVC-and-why-you-should-use-it/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HMVC and why your web app needs it!
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/09/12/ember-first-experiences/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ember - First Experiences</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+    var disqus_shortname = 'oligriffiths';
+    
+    var disqus_url = 'http://www.oligriffiths.com/2014/11/25/removing-http-from-web-apps/';
+    
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//go.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+</section>
+            
+              <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+            
+          </div>
+        </div>
+        <div id="footer_spacer"></div>
+<footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+  </div>
+</body>
+</html>

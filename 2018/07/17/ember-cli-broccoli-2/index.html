@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Ember Cli &amp; Broccoli 2.0 | Oli Griffiths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="I recently completed work on updating Ember-CLI to use the new Broccoli 2.0 release. This is currently behind an experiment flag. Broccoli 2.0 brings with it some performance enhancements, and the abi">
+<meta name="keywords" content="Ember,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ember Cli &amp; Broccoli 2.0">
+<meta property="og:url" content="http://www.oligriffiths.com/2018/07/17/ember-cli-broccoli-2/index.html">
+<meta property="og:site_name" content="Oli Griffiths">
+<meta property="og:description" content="I recently completed work on updating Ember-CLI to use the new Broccoli 2.0 release. This is currently behind an experiment flag. Broccoli 2.0 brings with it some performance enhancements, and the abi">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/broccoli-logo.png">
+<meta property="og:updated_time" content="2020-03-19T14:47:01.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ember Cli &amp; Broccoli 2.0">
+<meta name="twitter:description" content="I recently completed work on updating Ember-CLI to use the new Broccoli 2.0 release. This is currently behind an experiment flag. Broccoli 2.0 brings with it some performance enhancements, and the abi">
+<meta name="twitter:image" content="http://www.oligriffiths.com/broccolijs/assets/broccoli-logo.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54750852-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body class="not-home">
+  <div id="container">
+    <div id="header-nav" class="">
+    <div class="outer">
+        <nav id="main-nav">
+            <a id="main-nav-toggle" class="nav-icon"></a>
+            
+            <a class="main-nav-link" href="/">Home</a>
+            
+            <a class="main-nav-link" href="/archives">Archives</a>
+            
+            <a class="main-nav-link" href="/about">About</a>
+            
+        </nav>
+        <nav id="sub-nav">
+            
+            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+            
+            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        </nav>
+        <div id="search-form-wrap">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
+        </div>
+    </div>
+</div>
+
+
+    <div id="wrap">
+        
+        <div id="content">
+          <div class="outer">
+            <section id="main"><article id="post-ember-cli-broccoli-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/17/ember-cli-broccoli-2/" class="article-date">
+  <time datetime="2018-07-17T16:00:00.000Z" itemprop="datePublished">Jul 17 2018</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ember Cli &amp; Broccoli 2.0
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>I recently completed work on updating <a href="https://embercli.com" target="_blank" rel="noopener">Ember-CLI</a> to use the new <a href="https://github.com/broccolijs/broccoli" target="_blank" rel="noopener">Broccoli 2.0</a>
+release. This is currently behind an experiment flag. Broccoli 2.0 brings with it some performance enhancements, and the
+ability to move the <code>tmp</code> directory to the system <code>tmp</code> directory, and out of the project. Read on to find out how you
+can test it out.</p>
+<p><img src="/broccolijs/assets/broccoli-logo.png" alt="broccoli"></p>
+<a id="more"></a>
+<h2><span id="history">History</span></h2><p>First, a bit of history. Ember-CLI forked Broccoli back in 2015 to <a href="https://github.com/ember-cli/broccoli-builder" target="_blank" rel="noopener">broccoli-builder</a>
+in order to add features to the core library that were not accepted as upstream changes. From that point on, work happened
+in parallel, with updates being back-ported from the Broccoli master repo into the fork. Since then multiple contributions
+to the Broccoli master repo have been accepted, and in 2017, Stefan Penner <a href="https://twitter.com/stefanpenner" target="_blank" rel="noopener">@stefanpenner</a>
+and Robert Jackson <a href="https://twitter.com/rwjblue" target="_blank" rel="noopener">@rwjblue</a> did a huge amount of work rewriting Broccoli into ES6 format,
+and re-architected the internals.</p>
+<p>As such, the divergence has become so great that backporting is no longer possible. That, along with some issues with
+<code>broccoli-builder</code> that folks have had, especially with the <code>tmp</code> directory being within the project directory, meant that
+the Ember-CLI team decided to upstream some fixes from <code>broccoli-builder</code> into <code>master</code>, and then update Ember-CLI
+to use the newly updated Broccoli master.</p>
+<p>I was fortunate enough to be invited to join the Ember-CLI face-to-face after <a href="http://emberconf.com/" target="_blank" rel="noopener">EmberConf 2018</a>
+in Portland earlier this year, due to my work on the Broccoli workshop that I presented at the conference and a
+<a href="/broccolijs">tutorial series</a> that I produced. During this meeting, we formulated a plan of attack, and I drew up a
+quest issue (<a href="https://github.com/broccolijs/broccoli/issues/360" target="_blank" rel="noopener">issue 360</a>).</p>
+<p>Work then began over the following months, to upstream some required changes that had been made to <code>broccoli-builder</code> into
+the main Broccoli repository, as well as integrating the main Broccoli library back into Ember-CLI in parallel with
+<code>broccoli-builder</code>, so that it can be tested side-by-side under the experiment functionality of Ember-CLI.</p>
+<h2><span id="note">Note</span></h2><p>There is currently a known bug with <code>ember serve</code> causing rebuilds to not work, we are working to fix this.</p>
+<h2><span id="usage">Usage</span></h2><p>In order to test out the new Broccoli 2.0 release in Ember-CLI you must do 2 things, update Ember-CLI to use <code>master</code>
+and to enable the experiment. Experiments are only enabled in Ember-CLI master, so first, let&#39;s get that:</p>
+<h3><span id="ember-cli-master">Ember-CLI master</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev &quot;https://github.com/ember-cli/ember-cli.git#master&quot;</span><br></pre></td></tr></table></figure>
+<p>or
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev &quot;https://github.com/ember-cli/ember-cli.git#master&quot;</span><br></pre></td></tr></table></figure></p>
+<p>Once that completes, you&#39;ll be using the bleeding-edge Ember-CLI, exciting!</p>
+<h3><span id="enabling-broccoli-20">Enabling Broccoli 2.0</span></h3><p>Next, you need to enable a build using the experiment, to do that, run:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EMBER_CLI_BROCCOLI_2=true ember build</span><br></pre></td></tr></table></figure>
+<p>This should build as before, hopefully everything works and you don&#39;t get any errors.</p>
+<p>Now try running serve:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EMBER_CLI_BROCCOLI_2=true ember serve</span><br></pre></td></tr></table></figure>
+<p>Note: There is currently a known bug with <code>ember serve</code> causing rebuilds to not work, we are working to fix this.</p>
+<p>If you experience any errors when using the experiment enabled that you do not get when running without the experiment,
+please hop onto the <a href="https://embercommunity.slack.com/messages/C0CRP360G" target="_blank" rel="noopener">Ember community slack</a> and let us know, or
+submit an issue to <a href="https://github.com/ember-cli/ember-cli/issues" target="_blank" rel="noopener">github</a>, please make sure you include:</p>
+<ul>
+<li>what OS you&#39;re running</li>
+<li>what Ember version you&#39;re using</li>
+<li>what addons and broccoli-plugins you&#39;re using</li>
+<li>a link to your project if it&#39;s publicly available.</li>
+</ul>
+<h3><span id="enabling-system-temp-directory">Enabling system temp directory</span></h3><p>One problem with <code>broccoli-builder</code> is that it uses the project directory to write temp files during the build process.
+This often causes performance problems, especially on windows. Broccoli master now supports (by default) setting the temp
+directory to the system temp directory. To enable this in Ember-CLI, do the following:</p>
+<p>Start by removing the temp directory if it already exists:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf tmp;</span><br></pre></td></tr></table></figure></p>
+<p>Now build:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EMBER_CLI_BROCCOLI_2=true EMBER_CLI_SYSTEM_TEMP=true ember build</span><br></pre></td></tr></table></figure></p>
+<p>Or to serve:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EMBER_CLI_BROCCOLI_2=true EMBER_CLI_SYSTEM_TEMP=true ember serve</span><br></pre></td></tr></table></figure></p>
+<p>Note: There is currently a known bug with <code>ember serve</code> causing rebuilds to not work, we are working to fix this.</p>
+<p>When serving, you should notice that the <code>tmp</code> directory is not created in the project. Note that <code>EMBER_CLI_SYSTEM_TEMP</code> only
+works in combination with <code>EMBER_CLI_BROCCOLI_2</code>.
+Please test this out and report any issues, or performance improvements/degradations as above.</p>
+<p>I hope you enjoy using the new Broccoli 2.0. Next up, documentation....</p>
+
+      
+    </div>
+    
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/_posts/ember-cli-broccoli-2.md">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    
+    <footer class="article-footer">
+      <a data-url="http://www.oligriffiths.com/2018/07/17/ember-cli-broccoli-2/" data-id="ck7yvbti50005yn57lnkffsnb" class="article-share-link">Share</a>
+      
+        <a href="http://www.oligriffiths.com/2018/07/17/ember-cli-broccoli-2/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ember/">Ember</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Eat Your Greens - A Broccoli.js Tutorial</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+    var disqus_shortname = 'oligriffiths';
+    
+    var disqus_url = 'http://www.oligriffiths.com/2018/07/17/ember-cli-broccoli-2/';
+    
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//go.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+</section>
+            
+              <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+            
+          </div>
+        </div>
+        <div id="footer_spacer"></div>
+<footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+  </div>
+</body>
+</html>

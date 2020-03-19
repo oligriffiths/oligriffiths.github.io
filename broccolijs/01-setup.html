@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>01-Setup | Oli Griffiths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="First things first, it is assumed that you know how to use a terminal on your machine, if you&amp;#39;re unfamiliar with the terminal, best get familiar with that first. You&amp;#39;re also going to want to u">
+<meta property="og:type" content="website">
+<meta property="og:title" content="01-Setup">
+<meta property="og:url" content="http://www.oligriffiths.com/broccolijs/01-setup.html">
+<meta property="og:site_name" content="Oli Griffiths">
+<meta property="og:description" content="First things first, it is assumed that you know how to use a terminal on your machine, if you&amp;#39;re unfamiliar with the terminal, best get familiar with that first. You&amp;#39;re also going to want to u">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/vscode-debug.png">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/intellij-debug.png">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/vscode-debug-controls.png">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/intellij-debug-controls.png">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/01-setup.png">
+<meta property="og:updated_time" content="2020-03-19T14:47:01.214Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01-Setup">
+<meta name="twitter:description" content="First things first, it is assumed that you know how to use a terminal on your machine, if you&amp;#39;re unfamiliar with the terminal, best get familiar with that first. You&amp;#39;re also going to want to u">
+<meta name="twitter:image" content="http://www.oligriffiths.com/broccolijs/assets/vscode-debug.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54750852-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body class="not-home">
+  <div id="container">
+    <div id="header-nav" class="">
+    <div class="outer">
+        <nav id="main-nav">
+            <a id="main-nav-toggle" class="nav-icon"></a>
+            
+            <a class="main-nav-link" href="/">Home</a>
+            
+            <a class="main-nav-link" href="/archives">Archives</a>
+            
+            <a class="main-nav-link" href="/about">About</a>
+            
+        </nav>
+        <nav id="sub-nav">
+            
+            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+            
+            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        </nav>
+        <div id="search-form-wrap">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
+        </div>
+    </div>
+</div>
+
+
+    <div id="wrap">
+        
+        <div id="content">
+          <div class="outer">
+            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/broccolijs/01-setup.html" class="article-date">
+  <time datetime="2018-04-27T04:00:00.000Z" itemprop="datePublished">Apr 27 2018</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      01-Setup
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>First things first, it is assumed that you know how to use a terminal on your machine, if you&#39;re unfamiliar with the
+terminal, best get familiar with that first.</p>
+<p>You&#39;re also going to want to use Node 8 as this is the current LTS (long term support) version.</p>
+<p>We&#39;re going to use <a href="https://yarnpkg.com" target="_blank" rel="noopener">yarn</a> instead of <code>npm</code> to ensure our dependencies are in lock step.</p>
+<p>Create a new directory for this tutorial and install broccoli:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir broccoli-tutorial</span><br><span class="line"><span class="built_in">cd</span> broccoli-tutorial</span><br><span class="line">yarn init -y</span><br><span class="line">yarn add --dev broccoli@beta broccoli-cli</span><br></pre></td></tr></table></figure>
+<p>The above command will add broccoli and broccoli-cli as dev dependencies of your project. The CLI tool can also be
+installed globally if you wish, it just checks some basic dependencies in the current project before running the main
+broccoli library.</p>
+<p>In your <code>package.json</code> add the following to the <code>scripts</code> node (add this if it&#39;s not present):</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"broccoli build --overwrite"</span>,</span><br><span class="line">    <span class="attr">"serve"</span>: <span class="string">"broccoli serve"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You can now use <code>yarn build</code> and <code>yarn serve</code> for convenience.</p>
+<h3><span id="debugging">Debugging</span></h3><p>If you use <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a> or an Intellij product from <a href="https://www.jetbrains.com/" target="_blank" rel="noopener">Jetbrains</a>
+you can enable interactive debugging via a few simple steps. First, replace the scripts above with the following:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"node $NODE_DEBUG_OPTION $(which broccoli) build --overwrite"</span>,</span><br><span class="line">    <span class="attr">"serve"</span>: <span class="string">"node $NODE_DEBUG_OPTION $(which broccoli) serve"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4><span id="vscode">VSCode</span></h4><p>After this, you&#39;ll need the files in <a href="https://github.com/oligriffiths/broccolijs-tutorial/tree/00-init/.vscode" target="_blank" rel="noopener">this directory</a>.</p>
+<p>Once you have those in your project, you&#39;ll see the <code>Build - Debug</code> and <code>Serve - Debug</code> in your debug tab, see
+<a href="https://code.visualstudio.com/docs/editor/debugging" target="_blank" rel="noopener">the VSCode docs</a> for more details on debugging.</p>
+<p><img src="/broccolijs/assets/vscode-debug.png" alt="VSCode debug window"></p>
+<h4><span id="intellij">Intellij</span></h4><p>Select <code>Run &gt; Edit Configurations</code> from the menu bar, click the <code>+</code> in the top right hand corner, and select <code>npm</code>.
+Name the configuration <code>Build</code>, ensure <code>run</code> is selected in the <code>command</code> entry, and select <code>build</code> from the <code>scripts</code>
+dropdown, and hit apply. Repeat for the <code>serve</code> script.</p>
+<p><img src="/broccolijs/assets/intellij-debug.png" alt="intellij debug window"></p>
+<p>You can now add breakpoints by clicking in the column to the left of the line numbers (on the left) and then proceed to
+invoke a debugging session:</p>
+<p>VSCode:
+<img src="/broccolijs/assets/vscode-debug-controls.png" alt="VSCode debug controls"></p>
+<p>Intellij:
+<img src="/broccolijs/assets/intellij-debug-controls.png" alt="intellij debug controls">Screenshot 2018-09-20 18.57.10</p>
+<h2><span id="the-build-file">The build file</span></h2><p>Broccoli uses a file called <code>Brocfile.js</code> that must live in the root of your project, this is what will contain your
+build pipeline.</p>
+<p>So create a <code>Brocfile.js</code> in the root of your project, with the contents: </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Brocfile.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="string">"app"</span>;</span><br></pre></td></tr></table></figure>
+<p>Next, create a directory <code>app</code> within the project, and add a <code>index.html</code> file with the contents <code>Eat your greens!</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir app</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'Eat your greens!'</span> &gt; app/index.html</span><br></pre></td></tr></table></figure>
+<p>That&#39;s it, you&#39;re done.</p>
+<p>The initial setup of this tutorial merely copies files from the input <code>app</code> directory by exporting the string <code>app</code>.
+The <code>Brocfile.js</code> contains the Broccoli configuration for the build. The <code>module.exports</code> line must export a Broccoli
+tree. &quot;But it&#39;s a string&quot; you say, yes, Broccoli will automatically convert a string into a <code>source node</code>, and on build,
+validate that the directory exists. In this case, the Brocfile merely exports a single tree, containing the contents of
+the <code>app</code> directory, this will then be copied to the destination directory (<code>dist</code> in our case).</p>
+<p>To run a build, run <code>yarn build</code> (if you added the script) or <code>rm -rf dist &amp;&amp; broccoli build dist</code>.
+You should see something like:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ yarn build</span><br><span class="line">$ rm -rf dist</span><br><span class="line">✨  Done <span class="keyword">in</span> 1.05s.</span><br></pre></td></tr></table></figure>
+<p>This yarn command will remove any previous builds, and run a new build, outputting to the <code>dist</code> directory.
+Broccoli doesn&#39;t remove previous builds by default, so we must remove it before starting a new build.</p>
+<p>The contents of <code>app</code> should now be in the <code>dist</code> directory. Try:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cat dist/index.html</span><br><span class="line">Eat your greens!</span><br></pre></td></tr></table></figure>
+<p>Now try running <code>yarn serve</code> or <code>broccoli serve</code> and you should see:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ yarn serve</span><br><span class="line">Serving on http://localhost:4200</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Built - 0 ms @ Wed Mar 28 2018 11:25:30 GMT-0400 (EDT)</span><br></pre></td></tr></table></figure>
+<p>You will see the URL <code>http://localhost:4200</code>, if you open this in the browser, you should see:</p>
+<p><img src="assets/01-setup.png" alt="browser"></p>
+<p>Great, your first Broccoli build is complete, pat yourself on the back 👏.</p>
+<p>Completed Branch: <a href="https://github.com/oligriffiths/broccolijs-tutorial/tree/01-setup" target="_blank" rel="noopener">01-setup</a></p>
+<p>Next: <a href="02-funneling-files.html">02-funnelling-files</a></p>
+
+      
+    </div>
+    
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/broccolijs/01-setup.md">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    
+    <footer class="article-footer">
+      <a data-url="http://www.oligriffiths.com/broccolijs/01-setup.html" data-id="ck7yvbti30003yn57odetphas" class="article-share-link">Share</a>
+      
+        <a href="http://www.oligriffiths.com/broccolijs/01-setup.html#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+    var disqus_shortname = 'oligriffiths';
+    
+    var disqus_url = 'http://www.oligriffiths.com/broccolijs/01-setup.html';
+    
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//go.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+</section>
+            
+              <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+            
+          </div>
+        </div>
+        <div id="footer_spacer"></div>
+<footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+  </div>
+</body>
+</html>

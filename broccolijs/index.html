@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Eat Your Greens - A Broccoli.js tutorial | Oli Griffiths</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Welcome to the world of Broccoli.js. So, I&amp;#39;m sure you&amp;#39;re wondering, what is Broccoli.js? Well, per the Broccoli.js website  The asset pipeline for ambitious applications  Cool, wait, what the">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Eat Your Greens - A Broccoli.js tutorial">
+<meta property="og:url" content="http://www.oligriffiths.com/broccolijs/index.html">
+<meta property="og:site_name" content="Oli Griffiths">
+<meta property="og:description" content="Welcome to the world of Broccoli.js. So, I&amp;#39;m sure you&amp;#39;re wondering, what is Broccoli.js? Well, per the Broccoli.js website  The asset pipeline for ambitious applications  Cool, wait, what the">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.oligriffiths.com/broccolijs/assets/broccoli-pipeline-tree.png">
+<meta property="og:updated_time" content="2020-03-19T14:59:24.319Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eat Your Greens - A Broccoli.js tutorial">
+<meta name="twitter:description" content="Welcome to the world of Broccoli.js. So, I&amp;#39;m sure you&amp;#39;re wondering, what is Broccoli.js? Well, per the Broccoli.js website  The asset pipeline for ambitious applications  Cool, wait, what the">
+<meta name="twitter:image" content="http://www.oligriffiths.com/broccolijs/assets/broccoli-pipeline-tree.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-54750852-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+<body class="not-home">
+  <div id="container">
+    <div id="header-nav" class="">
+    <div class="outer">
+        <nav id="main-nav">
+            <a id="main-nav-toggle" class="nav-icon"></a>
+            
+            <a class="main-nav-link" href="/">Home</a>
+            
+            <a class="main-nav-link" href="/archives">Archives</a>
+            
+            <a class="main-nav-link" href="/about">About</a>
+            
+        </nav>
+        <nav id="sub-nav">
+            
+            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+            
+            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        </nav>
+        <div id="search-form-wrap">
+            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
+        </div>
+    </div>
+</div>
+
+
+    <div id="wrap">
+        
+        <div id="content">
+          <div class="outer">
+            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/broccolijs/index.html" class="article-date">
+  <time datetime="2018-04-27T04:00:00.000Z" itemprop="datePublished">Apr 27 2018</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Eat Your Greens - A Broccoli.js tutorial
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to the world of Broccoli.js. So, I&#39;m sure you&#39;re wondering, what <em>is</em> Broccoli.js?</p>
+<p>Well, per the <a href="http://broccoli.build" target="_blank" rel="noopener">Broccoli.js website</a></p>
+<blockquote>
+<p>The asset pipeline for ambitious applications</p>
+</blockquote>
+<p>Cool, wait, what the hell does that mean?</p>
+<p>This is a tutorial series of the workshop I gave at <a href="https://emberconf.com/schedule.html#b-eat-your-greens-a-broccoli-js-tutorial" target="_blank" rel="noopener">EmberConf 2018</a>,
+follow along to learn more about Broccoli.js and how you can use it to build your javascript project.</p>
+<!-- toc -->
+<ul>
+<li><a href="#tutorial">Tutorial</a></li>
+<li><a href="#intro">Intro</a><ul>
+<li><a href="#how-do-nodes-work">How do nodes work?</a></li>
+<li><a href="#how-do-plugins-work">How do plugins work?</a></li>
+<li><a href="#trees">Trees</a></li>
+</ul>
+</li>
+<li><a href="#building">Building</a></li>
+<li><a href="#serving">Serving</a></li>
+</ul>
+<!-- tocstop -->
+<p>&quot;Ambitious applications&quot;? That sounds scary, I just wanna make a
+simple JS app, with ES6 transpilation, SCSS pre-processing, asset concatenation, live reload, uglification,
+vendor npm module inclusion, development server, and, oh, wait, perhaps it&#39;s ambitious.</p>
+<p>Oh, yeah, and I want all that to be fast.</p>
+<p>Historically, we had grunt, and decided we didn&#39;t like configuration files.
+Then we had gulp, because we wanted to write code to compile our code, then it got slow.
+Then we had webpack that does bundling, minification, source maps, code splitting, but, it&#39;s kinda hard to configure.
+So Broccoli.js provides a simple Javascript API to do simple and complex file transformations, and do it fast.</p>
+<h2><span id="tutorial">Tutorial</span></h2><p>Each step of the tutorial has an accompanied branch, so you can checkout the branch if you get lost and you should be
+able to build the project and see the output. Remember to run <code>yarn</code> when checking out new branches.
+All the documentation is in the <code>docs</code> folder, split into sections.</p>
+<p>An overview presentation of Broccoli is available here: <a href="assets/broccolijs-presentation.pdf">Presentation</a></p>
+<p>Steps:</p>
+<ul>
+<li><a href="01-setup.html">01-setup</a></li>
+<li><a href="02-funneling-files.html">02-funneling-files</a></li>
+<li><a href="03-merge-trees.html">03-merge-trees</a></li>
+<li><a href="04-sass-preprocessing.html">04-sass-preprocessing</a></li>
+<li><a href="05-es6-transpilation.html">05-es6-transpilation</a></li>
+<li><a href="06-es6-modules.html">06-es6-modules</a></li>
+<li><a href="07-node-modules.html">07-node-modules</a></li>
+<li><a href="08-live-reload.html">08-live-reload</a></li>
+<li><a href="09-debug.html">09-debug</a></li>
+<li><a href="10-linting.html">10-linting</a></li>
+<li><a href="11-environment.html">11-environment</a></li>
+<li><a href="12-minify.html">12-minify</a></li>
+<li><a href="13-fingerprints.html">13-fingerprints</a></li>
+</ul>
+<h2><span id="intro">Intro</span></h2><p>What is a build tool responsible for? Well, it&#39;s job is to take input files (your javascript, css, html, etc) and
+process them, to output them into some form of distributable version. Typically this will involve things like javascript
+transformations to allow you to use newer syntax that will work in a browser, to use things like Sass for your CSS, etc.</p>
+<p>So, how is Broccoli any different? Broccoli is a simple build management tool, that allows you to configure your build
+pipeline in javascript (like you&#39;re already used to writing), and handles setting up the filesystem state for each
+transformation that&#39;s going to happen.</p>
+<p>Broccoli is structured around a concept of <code>nodes</code> and <code>plugins</code>, that allows the build pipeline to be structured
+somewhat like a &quot;tree&quot;, with one or more inputs at the top, and a final output directory at the bottom, containing the
+result of the build.</p>
+<p>Nodes reference one or more input directories, and an output directory. The output directory is automatically created by
+Broccoli itself.</p>
+<p>Plugins are third party provided npm packages, that take one or more input nodes (directories), perform some kind of
+transformation, and emit files to an output path. This output path can then become an input path to the next node in the
+chain, and so on.</p>
+<p>Nodes can then be manipulated via various broccoli plugins, to do things like copy files to the destination directory,
+pre-process files and convert them from one format to another (e.g. .scss to .css), merge directories together (think
+rsync&#39;ing one directory into another), concatenate files of a certain type into one (bundling), uglifying, and so on.</p>
+<h3><span id="how-do-nodes-work">How do nodes work?</span></h3><p>Nodes are what Broccoli uses to represent snapshots of directories and the transformations between states.</p>
+<p>Note that the term <code>tree</code> in Broccoli is often used to refer to a <code>node</code> and was previously used to refer to
+them (so don&#39;t get confused if you see the term tree used in other documentation).</p>
+<p>Nodes themselves don&#39;t actually contain file contents, and manipulations to the nodes don&#39;t happen when they are created.
+They&#39;re essentially abstract representations of state, they can be combined, split, filtered for specific file types,
+etc.</p>
+<p>Broccoli handles creating the node graph, that is, connecting the output paths of one or more nodes, to the input paths
+of another that will be consumed by the next plugin.</p>
+<p>Nodes are always one of two types, <code>source</code> nodes and <code>transform</code> nodes.</p>
+<p><code>source</code> nodes represent a single input directory, and are implicitly created when you use a <code>string</code> as an input to a
+plugin. Typically source nodes are &quot;watched&quot; directories, and changes to any files within them will trigger a rebuild of
+their node &quot;tree&quot;. You can also create unwatched directories for things like vendor files that don&#39;t change often.</p>
+<p><code>transform</code> nodes represent one or more input nodes, and are typically created by the output of plugins. Transform nodes
+delegate to a callback object (a plugin) during build time.</p>
+<h3><span id="how-do-plugins-work">How do plugins work?</span></h3><p>State transformations are performed by plugins. Plugins receive one or more input nodes, and write their output to the
+provided <code>outputPath</code> that Broccoli creates. Broccoli then takes the contents of <code>outputPath</code> and provides that as the
+<code>inputPaths</code> for the node to the next plugin.</p>
+<p>Plugins take at least one input path, perform some processing on the files within those input paths, and write their
+result to the provided <code>outputPath</code> and Broccoli handles wiring all this up for you. This way each plugin is only
+concerned with the transformation that it needs to do.</p>
+<p>Plugins can also cache their output, based usually on the hashes of their input paths, or any other factor.
+This way if the inputs to a plugin have not changed, then the plugin can supply a previously built output.</p>
+<p>Plugins are very simple JS classes that accept one or more input nodes, and implement a <code>build()</code> method that
+is called when broccoli performs a (re)build.</p>
+<h3><span id="trees">Trees</span></h3><p>You will certainly encounter the term &quot;tree&quot; when looking for Broccoli documentation. This was an often-used term that
+has now been replaced with &quot;node&quot;, as node reflects the data structure better than a &quot;tree&quot;. With this in mind, I prefer
+to use the term &quot;tree&quot; to refer to an entire build pipeline, or a collection of nodes and plugins.</p>
+<p>An example Broccoli.js tree is represented in the following image:</p>
+<p><img src="assets/broccoli-pipeline-tree.png" alt="Broccoli Pipeline"></p>
+<p>From the output node (the one at the bottom), a tree structure can be derived.</p>
+<h2><span id="building">Building</span></h2><p>Broccoli build pipelines are defined using a <code>Brocfile.js</code> file in the root of the project. This <code>js</code> file
+defines the <code>source</code> nodes, passes them through various plugins creating <code>transform</code> nodes, and finally
+returns a single node that represents the final output of the build. Broccoli will then handle wiring up
+all of the nodes inputs and outputs into a graph (from the end node up to the start nodes), creating temporary
+directories as it goes, linking files between plugins using symlinks to make them super fast, run the build and invoke
+the <code>build()</code> method on each plugin, and finally resolve all the symlinks and write the files from the final node into
+the destination build directory.</p>
+<p>Confused? Here&#39;s an example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mergeTrees = <span class="built_in">require</span>(<span class="string">"broccoli-merge-trees"</span>); <span class="comment">// broccoli merge-trees plugin</span></span><br><span class="line"><span class="built_in">module</span>.exports = mergeTrees([<span class="string">"dir1"</span>, <span class="string">"dir2"</span>]);</span><br></pre></td></tr></table></figure>
+<p>This is a very simple <code>Brocfile.js</code> that merely merges the contents of <code>dir1</code> and <code>dir2</code> into the output
+directory. The node graph would be represented as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source node</span><br><span class="line">            =====&gt; transform node</span><br><span class="line">source node</span><br><span class="line">------------------------</span><br><span class="line">/dir1 =&gt; source node 1</span><br><span class="line">/dir2 =&gt; source node 2</span><br><span class="line">mergeTrees(</span><br><span class="line">    &apos;dir1&apos;, =&gt; source node, implicitly created when using a string as an input</span><br><span class="line">    &apos;dir2&apos; =&gt; source node, implicitly created when using a string as an input</span><br><span class="line">)</span><br><span class="line">module.exports = transformation node with input nodes dir1 and dir2</span><br></pre></td></tr></table></figure>
+<p>Thus <code>module.exports</code> contains a node that references the two input nodes, and an output path that will contain the
+contents of <code>dir1</code> and <code>dir2</code> when the <code>build</code> command is run. The two input nodes reference two source directories,
+<code>dir1</code> and <code>dir2</code>.</p>
+<p>It sounds like a lot, but it&#39;s actually quite simple, so let&#39;s get started with a simple Broccoli app.</p>
+<h2><span id="serving">Serving</span></h2><p>One last thing. Broccoli comes with a built in dev server, that provides an HTTP server to host your assets
+in development, and perform rebuilds when source directories (nodes) change.</p>
+<p>To run the server, do:</p>
+<p><code>broccoli serve</code></p>
+<p>This should start a local HTTP server on <code>http://localhost:4200</code></p>
+<p>Cool, now you should have the basics down, let&#39;s go ahead and get a dummy project setup.</p>
+<p><a href="/broccolijs/01-setup.html">Step 1 - setup</a></p>
+
+      
+    </div>
+    
+    <footer class="article-footer">
+        If you notice any errors or things that need fixing in this article, please
+        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/broccolijs/index.md">
+        submit a pull request against the article on Github
+        </a>
+    </footer>
+    
+    <footer class="article-footer">
+      <a data-url="http://www.oligriffiths.com/broccolijs/index.html" data-id="ck7yvbtim0010yn57b55fsr5z" class="article-share-link">Share</a>
+      
+        <a href="http://www.oligriffiths.com/broccolijs/index.html#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+    var disqus_shortname = 'oligriffiths';
+    
+    var disqus_url = 'http://www.oligriffiths.com/broccolijs/index.html';
+    
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//go.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+
+</section>
+            
+              <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+            
+          </div>
+        </div>
+        <div id="footer_spacer"></div>
+<footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/fastclick.js"></script>
+<script type="text/javascript">
+    $(function() {
+        FastClick.attach(document.body);
+    });
+</script>
+  </div>
+</body>
+</html>
