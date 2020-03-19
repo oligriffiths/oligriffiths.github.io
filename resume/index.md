@@ -1,4 +1,4 @@
-title: Resume
+title: Oli Griffiths Resume
 comments: false
 ---
 
@@ -6,32 +6,42 @@ From the first time I started using computers, I knew that this was an industry 
 
 I'm passionate about new technologies, if there is a new, better way of solving a problem, I'm all over it! I'm also a huge proponent of open source; contributing to open source projects and putting your work out there is both satisfying and rewarding.
 
---- 
+---
 
 ## KEY SKILLS
 
-### Tech
+<div style="width: 50%; float: left">
+<h3>Tech</h3>
 
-* Apache/Nginx
-* Mysql/Redis/Memcache
-* PHP
-* JavaScript (native, jquery, ember)
-* Objective C & iOS Development
-* Web technologies - HTML5/CSS3
-* Git
-* Amazon AWS
-* Linux
-* Cocos2d & Cocoa Frameworks
+<ul>
+    <li>PHP</li>
+    <li>Apache/Nginx</li>
+    <li>Mysql/Redis/Memcache</li>
+    <li>JavaScript (native, jquery, ember)</li>
+    <li>Objective C & iOS Development</li>
+    <li>Web technologies - HTML5/CSS3</li>
+    <li>Git</li>
+    <li>Amazon AWS</li>
+    <li>Linux</li>
+    <li>Cocos2d & Cocoa Frameworks</li>
+</ul>
+</div>
 
-### Non Tech
+<div style="width: 50%; float: left">
+<h3>Non Tech</h3>
 
-* Excellent problem solving skills
-* Strong interpersonal and communication skills
-* An eye for detail and good design/usability
-* Able to work independently or in a team
-* Able to adapt to any given situation
-* Team management including direct people management, appraisals, performance management, personal development, discipline and accountability
-* Agile Development advocate
+<ul>
+    <li>Excellent problem solving skills</li>
+    <li>Strong interpersonal and communication skills</li>
+    <li>An eye for detail and good design/usability</li>
+    <li>Able to work independently or in a team</li>
+    <li>Able to adapt to any given situation</li>
+    <li>Team management including direct people management, appraisals, performance management, personal development, discipline and accountability</li>
+    <li>Agile Development advocate</li>
+</ul>
+</div>
+
+<br style="clear: both" />
 
 ---
 
@@ -71,13 +81,15 @@ In charge of architecture, design, overseeing and developing iOS apps for the co
 
 Lead Engineer : Feb 2007 - Feb 2013
 
-After leaving University in 2006, I was introduced to 2 guys who had formed a new startup and were looking for a web developer. 
+After leaving University in 2006, I started work at a new digital marketing startup. 
 
 I joined the team in February 2007 and shortly took on the technical lead role. From there I spearheaded the development effort of the company, growing the engineering team to 6 developers, 2 project managers and an account manager. 
 
 We handled projects for a wide variety of clients from the National health Service, to Microsoft, Adobe, Acer, Orange Business, etc.
 
 ---
+
+<div class="page-break"></div>
 
 ## PROJECTS
 
@@ -104,7 +116,7 @@ KodeKit is a rapid application development platform that I've been involved with
 ### AIG Cyberedge
 [App store](https://itunes.apple.com/us/app/aig-cyberedge/id596089398?mt=8)
 
-I build this app for AIG from the ground up, with an all new interface, localisation, offline data caching and a custom vertical tab bar.
+I built this app for AIG from the ground up, with an all new interface, localisation, offline data caching and a custom vertical tab bar.
 
 ### Padsquad
 [padsquad.com](http://www.padsquad.com)
