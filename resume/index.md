@@ -1,5 +1,4 @@
 title: Resume
-date: 2015-11-05
 comments: false
 ---
 
