@@ -1,4 +1,4 @@
-title: Oli Griffiths Resume
+title: Oliver Griffiths Resume
 comments: false
 ---
 
