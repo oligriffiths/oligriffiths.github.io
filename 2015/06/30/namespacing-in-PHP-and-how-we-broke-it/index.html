@@ -1,100 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>Namespacing in PHP and how we broke it | Oli Griffiths</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="In the wild west that is PHP, we were given a tool, a magical tool to help us organise our code better, to become better programmers, and write better, more distributable code. And what did we do? We">
-<meta name="keywords" content="PHP,Namespaces,Autoloading">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Namespacing in PHP and how we broke it">
-<meta property="og:url" content="http://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/index.html">
-<meta property="og:site_name" content="Oli Griffiths">
-<meta property="og:description" content="In the wild west that is PHP, we were given a tool, a magical tool to help us organise our code better, to become better programmers, and write better, more distributable code. And what did we do? We">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-19T14:59:24.314Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Namespacing in PHP and how we broke it">
-<meta name="twitter:description" content="In the wild west that is PHP, we were given a tool, a magical tool to help us organise our code better, to become better programmers, and write better, more distributable code. And what did we do? We">
-  
-    <link rel="alternative" href="/atom.xml" title="Oli Griffiths" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,700' rel='stylesheet' type='text/css'>
-  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css">
-  
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-54750852-1']);
-  _gaq.push(['_trackPageview']);
+<!DOCTYPE html><html lang="en-us"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Namespacing in PHP and how we broke it | Oliver Griffiths</title><meta name="description"><meta name="generator" content="Oliver Griffiths"><meta name="author" content="Oliver Griffiths"><meta name="keywords"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0"><link rel="stylesheet" type="text/css" href="/styles/screen.css"><link rel="apple-touch-icon" sizes="57x57" href="/images/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/images/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/images/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png"><link rel="icon" type="image/png" sizes="160x160" href="/images/favicon-160x160.png"><link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png"><meta name="msapplication-TileColor" content="#121315"><meta name="msapplication-TileImage" content="/images/mstile-144x144.png"><link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml"></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a href="/"><img src="/images/avatar.jpg" alt="Oliver Griffiths" title="Oliver Griffiths"></a><h1><a href="/" alt="Oliver Griffiths" title="Oliver Griffiths" itemprop="headline">Oliver Griffiths</a></h1><p itemprop="description"></p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/archives" alt="Archives" title="Archives" itemprop="url">Archives</a></li><li itemprop="name"><a href="/about" alt="About" title="About" itemprop="url">About</a></li><li itemprop="name"><a href="/resume" alt="Resume" title="Resume" itemprop="url">Resume</a></li></ul></nav><ul class="social"><li><a href="https://www.linkedin.com/in/oligriffiths" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener me"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path></svg></a></li><li><a href="https://github.com/oligriffiths" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener me"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"></path></svg></a></li></ul><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">Namespacing in PHP and how we broke it</h1><span class="post-meta">Published on<time itemprop="datePublished" datetime="2015-06-29T23:00:00.000Z"> Tuesday, June 30th 2015 at 0:00</time><br>Last updated on<time itemprop="dateModified" datetime="2015-06-29T23:00:00.000Z"> Thursday, March 19th 2020 at 14:59</time></span><p>In the wild west that is PHP, we were given a tool, a magical tool to help us organise our code better, to become better programmers, and write better, more distributable code. And what did we do? We bastardised it solely for the purposes of autoloading. THIS IS WHY WE CAN&#39;T HAVE NICE THINGS!</p>
+<span id="more"></span>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-</head>
-<body class="not-home">
-  <div id="container">
-    <div id="header-nav" class="">
-    <div class="outer">
-        <nav id="main-nav">
-            <a id="main-nav-toggle" class="nav-icon"></a>
-            
-            <a class="main-nav-link" href="/">Home</a>
-            
-            <a class="main-nav-link" href="/archives">Archives</a>
-            
-            <a class="main-nav-link" href="/about">About</a>
-            
-        </nav>
-        <nav id="sub-nav">
-            
-            <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-            
-            <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-        </nav>
-        <div id="search-form-wrap">
-            <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.oligriffiths.com"></form>
-        </div>
-    </div>
-</div>
-
-
-    <div id="wrap">
-        
-        <div id="content">
-          <div class="outer">
-            <section id="main"><article id="post-namespacing-in-PHP-and-how-we-broke-it" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/" class="article-date">
-  <time datetime="2015-06-30T04:00:00.000Z" itemprop="datePublished">Jun 30 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Namespacing in PHP and how we broke it
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>In the wild west that is PHP, we were given a tool, a magical tool to help us organise our code better, to become better programmers, and write better, more distributable code. And what did we do? We bastardised it solely for the purposes of autoloading. THIS IS WHY WE CAN&#39;T HAVE NICE THINGS!</p>
-<a id="more"></a>
 <p>Ok, so here&#39;s the problem is we&#39;ve bound namespacing to autoloading, which has caused a knock on effect of rendering namespacing largely useless.</p>
 <p>In order to achieve autoloading, one needs 2 things:</p>
 <ol>
@@ -107,39 +13,42 @@
 Namespacing:</p>
 <p>Before continuing, I want to first just elaborate on what a namespace is and the intention.</p>
 <p>A namespace is a set of named symbols, usually variables. Names or identifiers are keys allowing access to symbol values. Namespaces provide a level of direction to specific identifiers, thus making it possible to distinguish between identical identifiers. Subsequently relatable to the names of people, where a surname could be thought of as a namespace, this makes it possible to distinguish people who have the same given name.
-Source: <a href="https://en.wikipedia.org/wiki/Namespace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Namespace</a></p>
+Source: <a href="https://en.wikipedia.org/wiki/Namespace">https://en.wikipedia.org/wiki/Namespace</a></p>
 <p>Namespaces are intended to allow code to be sandboxed from a naming perspective, to allow one developer to write a class with the same name as another developer, and not have those class names clash when used together. </p>
 <p>Ok, now back to naming conventions:</p>
 <p>####Options:</p>
 <ul>
-<li>PSR 0/4 naming standard</li>
+<li>PSR 0&#x2F;4 naming standard</li>
 <li>Custom naming standard</li>
 </ul>
-<h5><span id="a-psr-04">A. PSR 0/4</span></h5><p>There exists a self titled group within the PHP community called the PHP Framework Interoperability Group (FIG). The FIG have done great work in trying to standardize various aspects of PHP, from coding style, to autoloading. The FIG have outlined 2 autoloading standards, PSR-0 and PSR-4. These PSRs define class naming conventions, that when used, allows for a PSR-0/4 compatible autoloader to be able to automatically load files, when the class name is used, thus removing the need for require statements. 
-<a href="http://www.php-fig.org/psr/psr-0/" target="_blank" rel="noopener">http://www.php-fig.org/psr/psr-0/</a>
-<a href="http://www.php-fig.org/psr/psr-4/" target="_blank" rel="noopener">http://www.php-fig.org/psr/psr-4/</a></p>
+<h5><span id="a-psr-0x2f4">A. PSR 0&#x2F;4</span></h5><p>There exists a self titled group within the PHP community called the PHP Framework Interoperability Group (FIG). The FIG have done great work in trying to standardize various aspects of PHP, from coding style, to autoloading. The FIG have outlined 2 autoloading standards, PSR-0 and PSR-4. These PSRs define class naming conventions, that when used, allows for a PSR-0&#x2F;4 compatible autoloader to be able to automatically load files, when the class name is used, thus removing the need for require statements. 
+<a href="http://www.php-fig.org/psr/psr-0/">http://www.php-fig.org/psr/psr-0/</a>
+<a href="http://www.php-fig.org/psr/psr-4/">http://www.php-fig.org/psr/psr-4/</a></p>
 <p>There are several problems with these standards:</p>
 <p>The fact that a second standard (PSR-4) was even needed, clearly indicates that the PSR-0 standard was not thought through well enough.</p>
 <p>Both standards are about autoloading, yet force a specific naming convention in order to achieve autoloading, they&#39;re attacking the problem from the wrong side, autoloading enforcing naming convetion, rather than naming convention dictating autoloading.</p>
 <p>This is both misleading, and harmful to developers. Sure, defining an autoloading standard, that has specific naming conventions may seem like a good thing, however it paves the way for one single autoloading standard to rule them all! (Until that standard get’s re-thought and replaced, <strong>cough</strong> PSR-4).</p>
 <p>A much better idea would have been to define an autoloading standard that allows naming standard specific rules to be registered against it, separating autoloading from naming standard.
-<a href="https://r.je/php-psr-0-pretty-shortsighted-really.html" target="_blank" rel="noopener">https://r.je/php-psr-0-pretty-shortsighted-really.html</a></p>
+<a href="https://r.je/php-psr-0-pretty-shortsighted-really.html">https://r.je/php-psr-0-pretty-shortsighted-really.html</a></p>
 <p>PSR-4 indicates that all fully qualified class names MUST have a namespace. This is completely wrong. In the case of package maintainers this is definitely a MUST, but in the case of user land code, the code that makes up the main non-distributable code of your app, this is completely unnecessary and architecturally inappropriate. User land code should not be namespaced, it has no need to be, you are in full control of it, yet the standard requires it for some unknown reason. Meaning you can’t use PSR-4 for non-package based autoloading, WAT?</p>
 <p><code>Namespaces\Class == file path</code>. The standards have butchered the use of namespacing for autoloading purposes, and autoloading purposes alone. This completely strips namespaces of any code structural relevance and renders them completely useless from a code standpoint. A standard should absolutely not enforce this, or even suggest this. Namespaces are great if used correctly. If autoloading didn’t use namespaces to map to files, a package maintainer may have at most a 2-3 level namespace:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vendor\Package</span><br><span class="line">Vendor\Type\Package</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vendor\Package</span><br><span class="line">Vendor\Type\Package</span><br></pre></td></tr></table></figure>
+
 <p>Namespaces do not need to be more specific than that, there may be some edge case exceptions, but 4 levels really should be the max. </p>
 <p>Architectural issues aside, another problem is with the use of use statements in code. As namespaces directly relate to filesystem paths, you end up creating a new namespace for every directory level of your package, ending up with things like this:
-<a href="https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/HttpKernel/Kernel.php" target="_blank" rel="noopener">https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/HttpKernel/Kernel.php</a></p>
+<a href="https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/HttpKernel/Kernel.php">https://github.com/symfony/symfony/blob/2.8/src/Symfony/Component/HttpKernel/Kernel.php</a></p>
 <p>I think that speaks for itself.
 PHP namespacing is partially broken, and this standard highlights those bugs forcing you to change the name of your class.</p>
 <p>For example, say I have an abstract controller, I want it’s path to be <code>package/controller/abstract.php</code>, with PSR-4, let’s see what the name of the class should be:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Package\Controller\Abstract</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Package\Controller\Abstract</span><br></pre></td></tr></table></figure>
+
 <p>Uh oh, PHP doesn’t allow Abstract as a class name, so what am I to do? I have to now call my class:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Package\Controller\AbstractController</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Package\Controller\AbstractController</span><br></pre></td></tr></table></figure>
+
 <p>Or something similar.</p>
 <p>I’ve now duplicated redundant information in the class name 😞</p>
 <p>This same principle also applies to <code>default</code>, <code>use</code>, <code>trait</code>, <code>class</code>, <code>finally</code>, <code>static</code>, <code>public</code>, <code>private</code>, <code>protected</code>. Basically any PHP reserved word can’t be used a class name, now that really is a problem! </p>
-<p>I’ve covered a lot here about naming conventions and autoloading, whilst the two should be separate concepts, autoloading does depend on a naming convention standard. Unfortunately, one can’t talk about the PSR 0/4 autoloading standards without talking about naming conventions, and vice versa, again, part of the problem.</p>
+<p>I’ve covered a lot here about naming conventions and autoloading, whilst the two should be separate concepts, autoloading does depend on a naming convention standard. Unfortunately, one can’t talk about the PSR 0&#x2F;4 autoloading standards without talking about naming conventions, and vice versa, again, part of the problem.</p>
 <h5><span id="b-custom-standard">B. Custom standard</span></h5><p>There is nothing stopping you from adopting your own standard, but part of the idea of standardizing PHP is having standards (that aren’t inherently flawed). Let’s talk about pure code here, no autoloading, just a naming convention.</p>
 <p>English is a funny language, sometimes we refer to things with the qualifier last, and sometimes we refer to things with the qualifier first, for example:</p>
 <ul>
@@ -149,14 +58,16 @@ PHP namespacing is partially broken, and this standard highlights those bugs for
 <li>Telecoms provider</li>
 </ul>
 <p>In code, we usually do things like:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DashboardController</span><br><span class="line">DatabaseAdapter</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DashboardController</span><br><span class="line">DatabaseAdapter</span><br></pre></td></tr></table></figure>
+
 <p>Clearly these two standards are opposed to one another, the <strong>qualifier</strong> (or in reality a “namespace”) sometimes goes at the end, sometimes at the start. English reads from left to right, so it makes more sense for the qualifier part of the class name to come first. Think about a phone book, it’s indexed by last name, not first name. This makes it easier to read, and easier to find things. Same applies to code. Easier to read code, easier to find code, makes life simpler. </p>
 <p>Now it would be easy to split that class name by uppercase character and map that to file name, but that poses a problem with the first example. Think about finding a class in a file called <code>ControllerDashboard</code>, if you wanted to find that file, simply look in <code>controller\dashboard.php</code>. Having <code>DashboardController</code> however means you’d have to flip the class name round in your head in order to locate it to <code>controller\dashboard.php</code> (you’re unlikely to store the file in <code>dashboard/controller.php</code>). 
 Then what happens if you have a 3 part class name, say UserRegistrationController? This would now map to <code>controller\registration\user.php</code>, however I’d really want it to map to <code>controller\user\registration.php</code>. </p>
 <p>A filesystem is by very definition of being a tree, a namespaced structure. The root node of a tree defines the starting namespace, and each subdirectory is a sub-namespace of the parent. </p>
 <p>What we’re looking to do is define a standard that makes sense, is easy to read, and ultimately, easy to map to a file path. Sorting the class name by qualifiers, we can easily map to a filesystem path, it’s readable, easy to understand, and easy for developers to translate from class to file path.</p>
 <p>So, the standard that I propose is as follows:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyClassName =&gt; my/class/name.php</span><br><span class="line">ControllerDashboard =&gt; controller/dashboard.php</span><br><span class="line">DatabaseAdapterMysql =&gt; database/adapter/mysql.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyClassName =&gt; my/class/name.php</span><br><span class="line">ControllerDashboard =&gt; controller/dashboard.php</span><br><span class="line">DatabaseAdapterMysql =&gt; database/adapter/mysql.php</span><br></pre></td></tr></table></figure>
+
 <p>Simples :)</p>
 <p>Ok, now lets actually talk about namespaces, real, PHP namespaces. How can we, and how should we use them in the above example. Well, as explained before, namespaces allow us to package code and keep classes within that code separate from classes in another packages code. </p>
 <p>When talking about packages, my mind immediately goes to a directory, containing files. So very simply, why not have the namespace, map to a folder containing files… Seems like a logical step. This now segues nicely into autoloading.</p>
@@ -170,20 +81,22 @@ Then what happens if you have a 3 part class name, say UserRegistrationControlle
 Class name MUST be split by uppercase letter and map directly to file system path
 E.g.</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ControllerDashboard =&gt; controller/dashboard.php</span><br><span class="line">DatabaseAdapterMysql =&gt; database/adapter/mysql.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ControllerDashboard =&gt; controller/dashboard.php</span><br><span class="line">DatabaseAdapterMysql =&gt; database/adapter/mysql.php</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>Namespace <strong>MUST</strong> map to a base directory. This does not mean that the namespace == directory structure, as that limits flexibility. 
+<li>Namespace <strong>MUST</strong> map to a base directory. This does not mean that the namespace &#x3D;&#x3D; directory structure, as that limits flexibility. 
 For example, composer packages all exist in the following structure:
 <code>vendor/vendor_name/package</code>
 Well what if my name space has 3 parts? <code>Vendor\Type\Package</code>, e.g. 
 <code>Symfony\Component\HttpKernel</code>. Or what if I’m not using composer at all?
 A base directory merely serves to inform the autoloader that a specific namespace, maps to a specific folder.</li>
-<li>A parent namespace <strong>MAY</strong> be mapped to a base directory to remove the need to manually map all “packages” under a vendor namespace to their respective folders if the sub-namespace == sub-folder.
+<li>A parent namespace <strong>MAY</strong> be mapped to a base directory to remove the need to manually map all “packages” under a vendor namespace to their respective folders if the sub-namespace &#x3D;&#x3D; sub-folder.
 E.g. for the namespace <code>Illuminate\Validation</code>:</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Illuminate =&gt; vendor/illuminate.</span><br></pre></td></tr></table></figure>
-<p>This allows for:
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Illuminate\Validation\ =&gt; vendor/illuminate/validation</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Illuminate =&gt; vendor/illuminate. </span><br></pre></td></tr></table></figure>
+<p>This allows for:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Illuminate\Validation\ =&gt; vendor/illuminate/validation</span><br></pre></td></tr></table></figure>
+
 <p>Using the rules above:</p>
 <ul>
 <li>non-namespaced code is associated with a base directory</li>
@@ -192,179 +105,19 @@ E.g. for the namespace <code>Illuminate\Validation</code>:</li>
 </ul>
 <p>The above allows for all of the packages of a specific vendor to be autoloaded if the package name matches the folder name, OR it allows for a specific folder to be registered for a specific package namespace.</p>
 <p>This approach also still allows non-namespaced code to be registered to a single directory (your app code). In effect, non-namespaced code is actually namespaced, by the fact that it doesn’t have a specific namespace, it’s in the “global” namespace. It also allows packaged, namespaced code to be registered to a specific directory. </p>
-<h3><span id="3-auto-loadder-registry">3. Auto loadder registry</span></h3><p>Whilst PHP offers the ability to register multiple autoloaders since PHP 5, using <code>spl_autoload_register</code> <a href="http://php.net/manual/en/function.spl-autoload-register.php" target="_blank" rel="noopener">http://php.net/manual/en/function.spl-autoload-register.php</a>], it would be much more convenient if a single autoloader registry existed, that different autoloading standards could be registered. That way, legacy systems could all play nicely together. </p>
-<p>Most people are using composer for dependency management, along with the composer autoloader. The problem with the composer autoloader is it just does what composer wants it to do, you can register additional means of translating a class name into file path. You&#39;re limited to <code>PSR0/4</code>, <code>File include</code> and <code>Classmap</code>. Why cant package developers who don&#39;t want to use PSR0/4 register alternative autoloaders with composer? You have to register a separate autoloader using <code>spl_autoload_register</code>.</p>
-<p>This article by Tom Butler has a very good explaination of this and a proposed solution <a href="https://r.je/php-psr-0-pretty-shortsighted-really.html" target="_blank" rel="noopener">https://r.je/php-psr-0-pretty-shortsighted-really.html</a></p>
+<h3><span id="3-auto-loadder-registry">3. Auto loadder registry</span></h3><p>Whilst PHP offers the ability to register multiple autoloaders since PHP 5, using <code>spl_autoload_register</code> <a href="http://php.net/manual/en/function.spl-autoload-register.php">http://php.net/manual/en/function.spl-autoload-register.php</a>], it would be much more convenient if a single autoloader registry existed, that different autoloading standards could be registered. That way, legacy systems could all play nicely together. </p>
+<p>Most people are using composer for dependency management, along with the composer autoloader. The problem with the composer autoloader is it just does what composer wants it to do, you can register additional means of translating a class name into file path. You&#39;re limited to <code>PSR0/4</code>, <code>File include</code> and <code>Classmap</code>. Why cant package developers who don&#39;t want to use PSR0&#x2F;4 register alternative autoloaders with composer? You have to register a separate autoloader using <code>spl_autoload_register</code>.</p>
+<p>This article by Tom Butler has a very good explaination of this and a proposed solution <a href="https://r.je/php-psr-0-pretty-shortsighted-really.html">https://r.je/php-psr-0-pretty-shortsighted-really.html</a></p>
 <hr>
 <p>And there you go, simple. A standard that allows for a clear, sensible naming convention, that doesn&#39;t butcher language features, is separated from a separate autoloading standard, and an autoloader implementation that allows for multiple autoloading standards to be registered.</p>
-
-      
-    </div>
-    
-    <footer class="article-footer">
-        If you notice any errors or things that need fixing in this article, please
-        <a href="https://github.com/oligriffiths/oligriffiths.github.io/blob/content/_posts/namespacing-in-PHP-and-how-we-broke-it.md">
-        submit a pull request against the article on Github
-        </a>
-    </footer>
-    
-    <footer class="article-footer">
-      <a data-url="http://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/" data-id="ck7ywx3ge000e5y576vdf4ef7" class="article-share-link">Share</a>
-      
-        <a href="http://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autoloading/">Autoloading</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Namespaces/">Namespaces</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Eat your greens! A beginners guide to Broccoli.js
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/01/06/HMVC-and-why-you-should-use-it/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">HMVC and why your web app needs it!</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-
-<script>
-    var disqus_shortname = 'oligriffiths';
-    
-    var disqus_url = 'http://www.oligriffiths.com/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/';
-    
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//go.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-
-</section>
-            
-              <aside id="sidebar">
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Architecture/">Architecture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autoloading/">Autoloading</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design/">Design</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ember/">Ember</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMVC/">HMVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MVC/">MVC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Namespaces/">Namespaces</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terminal/">Terminal</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/broccoli/">broccoli</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ember/">ember</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">2</span></li></ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Architecture/" style="font-size: 10px;">Architecture</a> <a href="/tags/Autoloading/" style="font-size: 10px;">Autoloading</a> <a href="/tags/Design/" style="font-size: 10px;">Design</a> <a href="/tags/Ember/" style="font-size: 15px;">Ember</a> <a href="/tags/HMVC/" style="font-size: 10px;">HMVC</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/MVC/" style="font-size: 10px;">MVC</a> <a href="/tags/Namespaces/" style="font-size: 10px;">Namespaces</a> <a href="/tags/PHP/" style="font-size: 15px;">PHP</a> <a href="/tags/Terminal/" style="font-size: 10px;">Terminal</a> <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/broccoli/" style="font-size: 20px;">broccoli</a> <a href="/tags/ember/" style="font-size: 10px;">ember</a> <a href="/tags/javascript/" style="font-size: 20px;">javascript</a> <a href="/tags/js/" style="font-size: 15px;">js</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">July 2014</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/27/eat-your-greens-broccolijs-tutorial/">Eat Your Greens - A Broccoli.js Tutorial</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/26/Eat-your-greens-A-beginners-guide-to-Broccoli-js/">Eat your greens! A beginners guide to Broccoli.js</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/30/namespacing-in-PHP-and-how-we-broke-it/">Namespacing in PHP and how we broke it</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-            
-          </div>
-        </div>
-        <div id="footer_spacer"></div>
-<footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-        All content copyright &copy; 2020 Oli Griffiths &bull; All rights reserved.<br>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
-  
-</nav>
-    
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-<script src="/js/fastclick.js"></script>
-<script type="text/javascript">
-    $(function() {
-        FastClick.attach(document.body);
-    });
-</script>
-  </div>
-</body>
-</html>
+</article><section id="comments"><h2>Comments<div id="disqus_thread"><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript></div></h2></section></main><script async>(function(h,g,l,k,j,i){j=h.createElement(g),i=h.getElementsByTagName(g)[0],
+j.src = '//' + l + '.disqus.com/' + k + '.js', i.parentNode.insertBefore(j, i)})
+(document,'script','oligriffiths','embed');
+</script><script async>var disqus_shortname = 'oligriffiths';
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
+}());
+</script></body></html>
