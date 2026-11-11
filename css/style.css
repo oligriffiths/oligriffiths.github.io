@@ -1,0 +1,232 @@
+/* Bulma theme: accent #4e00ad, Inter and JetBrains Mono */
+:root {
+  --bulma-primary-h: 267deg;
+  --bulma-primary-s: 100%;
+  --bulma-primary-l: 34%;
+  --bulma-link-h: 267deg;
+  --bulma-link-s: 100%;
+  --bulma-link-l: 34%;
+  --bulma-family-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --bulma-family-code: 'JetBrains Mono', ui-monospace, monospace;
+  --bulma-radius-large: 12px;
+  --bulma-card-radius: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* #4e00ad is too dark to read on a dark background, so lighten it */
+    --bulma-primary-l: 72%;
+    --bulma-link-l: 72%;
+  }
+}
+
+/* Bordered panels: cards and boxes. Bulma only defines
+   --bulma-panel-item-border inside .panel, so fall back to its default value. */
+.card,
+.box {
+  border: var(--bulma-panel-item-border, 1px solid var(--bulma-border-weak));
+  box-shadow: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  padding-top: var(--bulma-navbar-height);
+  -webkit-font-smoothing: antialiased;
+}
+
+.mono {
+  font-family: var(--bulma-family-code);
+}
+
+.site-header {
+  border-bottom: 1px solid var(--bulma-border-weak);
+  backdrop-filter: blur(10px);
+}
+
+.site-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--bulma-border-weak);
+}
+
+/* Profile card pinned on the left while the content scrolls */
+@media (min-width: 1024px) {
+  .profile-card {
+    position: sticky;
+    top: calc(var(--bulma-navbar-height) + 2rem);
+  }
+}
+
+.profile-card .card {
+  overflow: hidden;
+  box-shadow: 0 20px 40px -24px hsla(267, 100%, 34%, 0.45);
+}
+
+.profile-card .card-image {
+  padding: 1.5rem 1.5rem 0;
+}
+
+.profile-card .card-image img {
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Two-tone headline */
+.hero-title {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--bulma-text-strong);
+}
+
+.hero-title .muted-word {
+  color: color-mix(in srgb, var(--bulma-text-strong) 25%, var(--bulma-scheme-main));
+}
+
+.stat {
+  width: 100%;
+}
+
+.home-section {
+  padding-top: 5rem;
+}
+
+/* Project cards: whole card clickable, lifts on hover */
+.project-card {
+  position: relative;
+  width: 100%;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px -14px hsla(267, 100%, 34%, 0.5);
+}
+
+.project-card .stretched {
+  color: inherit;
+}
+
+.project-card .stretched::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.project-card:hover .stretched {
+  color: var(--bulma-primary);
+}
+
+.project-card svg {
+  vertical-align: -1px;
+  transition: transform .2s;
+}
+
+.project-card:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.timeline-row {
+  border-top: 1px solid var(--bulma-border-weak);
+  margin-top: 0;
+}
+
+.timeline-row:last-child {
+  border-bottom: 1px solid var(--bulma-border-weak);
+}
+
+/* Resume */
+.resume h2 {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--bulma-border-weak);
+}
+
+.resume h4 {
+  font-family: var(--bulma-family-code);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--bulma-primary);
+}
+
+.resume-period {
+  font-family: var(--bulma-family-code);
+  font-size: 0.8rem;
+  color: var(--bulma-text-weak);
+}
+
+.resume h3 + .resume-period,
+.resume h4 + .resume-period,
+.resume h4 + ul,
+.resume-period + ul {
+  margin-top: 0.25rem;
+}
+
+.resume-job:not(:first-of-type) {
+  margin-top: 2.5rem;
+}
+
+/* Fade-in on scroll (only when JS is running) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal,
+  .project-card {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Print, used for the resume */
+@page {
+  margin: 2cm 1cm;
+}
+
+@media print {
+  body {
+    padding-top: 0;
+    font-size: 12px;
+  }
+
+  .site-header,
+  .site-footer,
+  .no-print {
+    display: none !important;
+  }
+
+  .section {
+    padding: 0;
+  }
+
+  .container {
+    max-width: none !important;
+  }
+
+  .resume-job {
+    break-inside: avoid-page;
+  }
+
+  a {
+    color: #000 !important;
+  }
+}

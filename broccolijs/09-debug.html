@@ -1,4 +1,55 @@
-<!DOCTYPE html><html lang="en-us"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>09-Debugging | Oliver Griffiths</title><meta name="description"><meta name="generator" content="Oliver Griffiths"><meta name="author" content="Oliver Griffiths"><meta name="keywords"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=0"><link rel="stylesheet" type="text/css" href="/styles/screen.css"><link rel="apple-touch-icon" sizes="57x57" href="/images/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/images/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/images/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/images/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/images/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-180x180.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"><link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png"><link rel="icon" type="image/png" sizes="160x160" href="/images/favicon-160x160.png"><link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192x192.png"><meta name="msapplication-TileColor" content="#121315"><meta name="msapplication-TileImage" content="/images/mstile-144x144.png"><link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="atom.xml"></head><body itemscope itemtype="https://schema.org/WebPage"><header itemscope itemtype="https://schema.org/WPHeader"><a href="/"><img src="/images/avatar.jpg" alt="Oliver Griffiths" title="Oliver Griffiths"></a><h1><a href="/" alt="Oliver Griffiths" title="Oliver Griffiths" itemprop="headline">Oliver Griffiths</a></h1><p itemprop="description"></p><nav itemscope itemtype="https://schema.org/SiteNavigationElement"><ul><li itemprop="name"><a href="/" alt="Home" title="Home" itemprop="url">Home</a></li><li itemprop="name"><a href="/archives" alt="Archives" title="Archives" itemprop="url">Archives</a></li><li itemprop="name"><a href="/about" alt="About" title="About" itemprop="url">About</a></li><li itemprop="name"><a href="/resume" alt="Resume" title="Resume" itemprop="url">Resume</a></li></ul></nav><ul class="social"><li><a href="https://www.linkedin.com/in/oligriffiths" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener me"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path></svg></a></li><li><a href="https://github.com/oligriffiths" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener me"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"></path></svg></a></li></ul><div class="space"></div></header><main itemscope itemtype="https://schema.org/Blog"><article class="full"><h1 itemprop="headline">09-Debugging</h1><span class="post-meta">Last updated on<time itemprop="dateModified" datetime="2018-04-26T23:00:00.000Z"> Thursday, March 19th 2020 at 14:59</time></span><p>Because Broccoli handles managing the state of the file system between transformations, it can sometimes be tricky to
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>09-Debugging · Oliver Griffiths</title>
+  <meta name="description" content="I build large-scale web platforms, core architecture and data compliance systems for tens of millions of daily users.">
+  <meta name="theme-color" content="#4e00ad">
+  <link rel="icon" href="/images/avatar.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  
+<link rel="stylesheet" href="/css/bulma.min.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Oliver Griffiths" type="application/atom+xml">
+</head>
+<body>
+  <nav class="navbar is-fixed-top site-header" aria-label="Main">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item has-text-weight-semibold" href="/">Oliver Griffiths</a>
+      <a role="button" class="navbar-burger" aria-label="Menu" aria-expanded="false" data-target="main-menu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="main-menu" class="navbar-menu">
+      <div class="navbar-end">
+        
+          <a class="navbar-item" href="/#work">Work</a>
+        
+          <a class="navbar-item" href="/#experience">Experience</a>
+        
+          <a class="navbar-item" href="/#skills">Skills</a>
+        
+          <a class="navbar-item" href="/resume/">Resume</a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <main id="main">
+    <section class="section">
+  <div class="container is-max-tablet">
+    <article class="content">
+      <h1 class="title is-1">09-Debugging</h1>
+      <p>Because Broccoli handles managing the state of the file system between transformations, it can sometimes be tricky to
 debug at what stage a transformation went wrong. Luckily, there is a handy and hilariously named ;) package called 
 <a href="https://github.com/stefanpenner/broccoli-stew">broccoli-stew</a>.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev broccoli-stew@^2.0.0</span><br></pre></td></tr></table></figure>
@@ -24,14 +75,34 @@ called <code>my-tree</code> with the contents of <code>tree</code> that whatever
 to just logging the file names.</p>
 <p>Completed Branch: <a href="https://github.com/oligriffiths/broccolijs-tutorial/tree/09-debug">09-debug</a></p>
 <p>Next: <a href="10-linting.html">10-linting</a></p>
-</article><section id="comments"><h2>Comments<div id="disqus_thread"><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus</a>.</noscript></div></h2></section></main><script async>(function(h,g,l,k,j,i){j=h.createElement(g),i=h.getElementsByTagName(g)[0],
-j.src = '//' + l + '.disqus.com/' + k + '.js', i.parentNode.insertBefore(j, i)})
-(document,'script','oligriffiths','embed');
-</script><script async>var disqus_shortname = 'oligriffiths';
-(function () {
-var s = document.createElement('script'); s.async = true;
-s.type = 'text/javascript';
-s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(s);
-}());
-</script></body></html>
+
+    </article>
+  </div>
+</section>
+
+  </main>
+  
+<footer class="footer site-footer">
+  <div class="container is-flex is-justify-content-space-between is-align-items-center">
+    <span class="is-size-7 has-text-grey">&copy; 2026 Oliver Griffiths</span>
+    <span class="buttons">
+      
+        <a class="button is-ghost is-small" href="https://www.linkedin.com/in/oligriffiths" aria-label="LinkedIn" title="LinkedIn" rel="me noopener" target="_blank"><span class="icon">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+
+</span></a>
+      
+        <a class="button is-ghost is-small" href="https://github.com/oligriffiths" aria-label="GitHub" title="GitHub" rel="me noopener" target="_blank"><span class="icon">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.2.8.8 1.3 1.9 1.3 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+
+</span></a>
+      
+    </span>
+  </div>
+</footer>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
