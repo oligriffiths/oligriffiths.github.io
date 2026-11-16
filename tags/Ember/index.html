@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      } catch (e) {
+      }
+    })();
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Oliver Griffiths · Staff Engineer</title>
@@ -39,6 +50,18 @@
         
           <a class="navbar-item" href="/resume/">Resume</a>
         
+        <div class="navbar-item">
+          <button type="button" class="button is-ghost theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            
+<svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+
+
+            
+<svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+
+
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -51,9 +74,7 @@
       <h1 class="title is-1">Archive</h1>
       <ul>
         
-          <li><a href="/2018/07/17/ember-cli-broccoli-2/">Ember Cli &amp; Broccoli 2.0</a> <span class="mono is-size-7 has-text-grey">2018</span></li>
-        
-          <li><a href="/2014/09/12/ember-first-experiences/">Ember - First Experiences</a> <span class="mono is-size-7 has-text-grey">2014</span></li>
+          <li><a href="/2018/03/07/ember-map-interview/">EmberMap Interview on Ember, Broccoli, static analysis and mroe</a> <span class="mono is-size-7 has-text-grey">2018</span></li>
         
       </ul>
     </div>

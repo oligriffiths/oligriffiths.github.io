@@ -12,12 +12,45 @@
   --bulma-card-radius: 16px;
 }
 
+/* #4e00ad is too dark to read on a dark background, so lighten it */
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* #4e00ad is too dark to read on a dark background, so lighten it */
+  :root:not([data-theme="light"]) {
     --bulma-primary-l: 72%;
     --bulma-link-l: 72%;
   }
+}
+
+:root[data-theme="dark"] {
+  --bulma-primary-l: 72%;
+  --bulma-link-l: 72%;
+}
+
+/* Light/dark toggle: show the moon in light mode, the sun in dark mode */
+.theme-toggle {
+  color: inherit;
+  padding-inline: 0.5rem;
+}
+
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
 }
 
 /* Bordered panels: cards and boxes. Bulma only defines
@@ -96,7 +129,7 @@ body {
 }
 
 .home-section {
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
 
 /* Project cards: whole card clickable, lifts on hover */
